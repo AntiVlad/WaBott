@@ -195,4 +195,4 @@ client.on('message', async msg => {
 //     // ... or write it to a file
 //     fs.writeFileSync("image.png", MsgMedia.data);
 //   })
-module.exports = bot;
+// module.exports = bot;
