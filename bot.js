@@ -5,7 +5,7 @@ const { default: axios } = require('axios');
 
 const client = new Client({
   authStrategy: new LocalAuth(),
-  puppeteer: { headless: true },
+//   puppeteer: { headless: true },
   ffmpegPath: './ffmpeg.exe',
   puppeteer: {
     executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
@@ -195,3 +195,4 @@ client.on('message', async msg => {
 //     // ... or write it to a file
 //     fs.writeFileSync("image.png", MsgMedia.data);
 //   })
+module.exports = bot;
