@@ -2,7 +2,8 @@ const qrcode = require('qrcode-terminal');
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const ffmpeg = require('ffmpeg');
 const { default: axios } = require('axios');
-
+const express = require('express');
+const app = express();
 const client = new Client({
   authStrategy: new LocalAuth(),
 //   puppeteer: { headless: true },
@@ -12,6 +13,22 @@ const client = new Client({
 }
 });
 
+
+
+ 
+app.get('/', (req, res) => {
+  res
+    .status(200)
+    .send('Hello server is running')
+    .end();
+});
+ 
+// Start the server
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+  console.log('Press Ctrl+C to quit.');
+});
 
 
 client.on('qr', qr => {
