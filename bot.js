@@ -5,7 +5,7 @@ const { default: axios } = require('axios');
 
 const client = new Client({
   authStrategy: new LocalAuth(),
-  puppeteer: { headless: false },
+  puppeteer: { headless: true },
   ffmpegPath: './ffmpeg.exe',
   puppeteer: {
     executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
