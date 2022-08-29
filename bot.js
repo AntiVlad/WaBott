@@ -6,7 +6,7 @@ const express = require('express');
 const app = express();
 const client = new Client({
   authStrategy: new LocalAuth(),
-//   puppeteer: { headless: true },
+  puppeteer: { headless: true },
   ffmpegPath: './ffmpeg.exe',
   puppeteer: {
     executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
@@ -19,7 +19,8 @@ const client = new Client({
 app.get('/', (req, res) => {
   res
     .status(200)
-    .send('Hello server is running')
+    .send(`Server is Active
+    waiting for client to start`)
     .end();
 });
  
