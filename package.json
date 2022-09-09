@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node bot.js"
+    "start": "app/node bot.js"
   },
   "dependencies": {
     "axios": "^0.27.2",
