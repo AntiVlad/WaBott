@@ -8,5 +8,5 @@
 * Run ```npm install``` to install all dependencies
 * ```npm start``` to start the bot
 
-I will add alot more functionality to the bot soon
+I will add alot more functionality to the bot soon :)
 
