@@ -7,7 +7,7 @@ const app = express();
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: { headless: true },
-  ffmpegPath: './ffmpeg.exe',
+  ffmpegPath: '../ffmpeg.exe',
   puppeteer: {
     executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
 }
@@ -27,8 +27,8 @@ app.get('/', (req, res) => {
 // Start the server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-  console.log('Press Ctrl+C to quit.');
+  console.log(`Server is Active 
+waiting for client to start.`);
 });
 
 
@@ -166,23 +166,18 @@ client.on('message', async msg => {
             const sticker = await msg.downloadMedia();
             
             msg.reply(sticker, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
-            console.log("Sent a sticker");
-            // chat.sendMessage(sticker, { stickerAuthor: 'Your fav bot :)', sendMediaAsSticker: true, quotedMessageId: msg.id._serialized })
+            console.log("Sent a sticker");    
         }else
         if(msg.hasQuotedMsg){
             const quotedMsg = await msg.getQuotedMessage();
-                // if (quotedMsg.hasMedia){
                     const sticker = await quotedMsg.downloadMedia();
                     
                     msg.reply(sticker, null, { sendMediaAsSticker: true});
                     console.log("Sent a sticker");
-
-                // }
         }
     }else if(msg.body === "pls unsticker"){
         if(msg.hasQuotedMsg){
             const quotedMsg = await msg.getQuotedMessage();
-                // if (quotedMsg.hasMedia){
                     const unsticker = await quotedMsg.downloadMedia();
                     
                     msg.reply(unsticker);
@@ -204,13 +199,3 @@ client.on('message', async msg => {
     
 }});
 
-
-// client.on("message", (msg) => {
-//     if(!(msg.hasMedia && msg.type === "STICKER") return; // Checks if the message has media and is type sticker
-//     const MsgMedia = await msg.downloadMedia();
-//     // Now you can send the data back directly...  
-//     await msg.reply(MsgMedia);
-//     // ... or write it to a file
-//     fs.writeFileSync("image.png", MsgMedia.data);
-//   })
-// module.exports = bot;

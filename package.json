@@ -1,6 +1,6 @@
 {
-  "name": "wabot-r",
-  "version": "0.0.0",
+  "name": "wabot",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "cd app && node bot.js"
