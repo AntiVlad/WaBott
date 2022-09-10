@@ -42,6 +42,8 @@ client.on('ready', () => {
 client.initialize();
 
 const help=`Commands supported  are...
+ping -- pong
+
 pls help -- Brings up this message
 
 pls sticker -- The obvious
@@ -56,7 +58,7 @@ pls delete -- Makes me delete my message 🥺
 
 pls unsticker -- Sticker to Image
 
-ping -- pong
+
 `
 
 
@@ -73,21 +75,19 @@ client.on('message', msg => {
         console.log(msg.body)
 
 	}else if(msg.body === 'pls help') {
-		msg.reply('No, say pls');
+		msg.reply(help);
         console.log(msg.body)
 
     }else if(msg.body === 'Pls help') {
-		msg.reply('No, say Pls');
+		msg.reply(help);
         console.log(msg.body)
 
     }else if(msg.body === 'pls') {
-		msg.reply('Alright');
-		msg.reply(help);
+		msg.reply('No');
         console.log(msg.body)
 
     }else if(msg.body === 'Pls') {
-		msg.reply('Alright');
-		msg.reply(help);
+		msg.reply('No');
         console.log(msg.body)
 		
 
@@ -197,20 +197,19 @@ client.on('message', async msg => {
         } catch (e) {
             msg.reply('That invite code seems to be invalid.');
         }
-}
+}} 
 
-    
-        
-        
-    
-}});
 
-client.on('message_revoke_everyone', async (after, before) => {
-    
-    console.log(after); 
-    if (before) {
-        console.log(before); 
-    
-    }
-});
+})  
+;
+client.on('message', async (msg) => {
+    client.on('message_revoke_everyone', async (after, before) => {
+        const chat = await msg.getChat();
+
+        if (before) {
+        
+            
+            // console.log(`Deleted Mesaage: ${before._data.body}`);
+             chat.sendMessage(`Deleted Message: ${before._data.body}`)}})})
+
 
