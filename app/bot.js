@@ -107,26 +107,32 @@ client.on('message', async (msg) => {
     let chat = await msg.getChat();
     if(msg.body === 'pls everyone'){
         if (chat.isGroup) {
-
             
-                const chat = await msg.getChat();
+            
+            const chat = await msg.getChat();
+            
+            
+            let text = "";
+            let mentions = [];
+            let grpName=chat.name;
+            for(let participant of chat.participants) {
+                const contact = await client.getContactById(participant.id._serialized);
                 
-                let text = "";
-                let mentions = [];
-                let grpName=chat.name;
-                for(let participant of chat.participants) {
-                    const contact = await client.getContactById(participant.id._serialized);
-                    
-                    mentions.push(contact);
-                    text += `@${participant.id.user} `;
-                }
+                mentions.push(contact);
+                text += `@${participant.id.user} `;
+            }
+            if(msg.hasQuotedMsg){
+            const quotedMsg = await msg.getQuotedMessage();
+            await quotedMsg.reply(text,null, { mentions });
+            console.log(`Tagged all in ${grpName} `);
+        }else{
+            await chat.sendMessage(text, { mentions });
+        }
+                
+        }else {
+             msg.reply('This command can only be used in a group!');
+    }}
 
-                await chat.sendMessage(text, { mentions });
-                console.log(`Tagged all in ${grpName} `);
-                
-            }else {
-                    msg.reply('This command can only be used in a group!');
-}}
     if(msg.body==='pls meme'){
         const meme = await axios('https://meme-api.herokuapp.com/gimme')
         .then(res => res.data);
@@ -198,4 +204,13 @@ client.on('message', async msg => {
         
     
 }});
+
+client.on('message_revoke_everyone', async (after, before) => {
+    
+    console.log(after); 
+    if (before) {
+        console.log(before); 
+    
+    }
+});
 
