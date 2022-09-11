@@ -202,14 +202,3 @@ client.on('message', async msg => {
 
 })  
 ;
-client.on('message', async (msg) => {
-    client.on('message_revoke_everyone', async (after, before) => {
-        const chat = await msg.getChat();
-
-        if (before) {
-        
-            
-            // console.log(`Deleted Mesaage: ${before._data.body}`);
-             chat.sendMessage(`Deleted Message: ${before._data.body}`)}})})
-
-
