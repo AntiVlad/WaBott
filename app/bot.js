@@ -31,7 +31,6 @@ app.listen(PORT, () => {
 waiting for client to start.`);
 });
 
-
 client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
 });

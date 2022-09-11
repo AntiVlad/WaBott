@@ -13,7 +13,7 @@
     "express": "~4.16.1",
     "ffmpeg": "^0.0.4",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
+    "jade": "^0.31.2",
     "morgan": "~1.9.1",
     "puppeteer": "^16.2.0",
     "qrcode-terminal": "^0.12.0",
