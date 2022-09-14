@@ -3,3 +3,4 @@ node_modules/
 ffmpeg.exe
 ffmpeg/
 whatsapp-web.js/
+app/chatExtension.py

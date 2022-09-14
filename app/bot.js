@@ -4,6 +4,7 @@ const ffmpeg = require('ffmpeg');
 const { default: axios } = require('axios');
 const express = require('express');
 const app = express();
+const request = require('request');
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: { headless: true },
@@ -137,13 +138,7 @@ client.on('message', async (msg) => {
         .then(res => res.data);
         client.sendMessage(msg.from, await MessageMedia.fromUrl(meme.url));
         console.log("sent a meme");
-    }msg
-    // if(msg.body==='pls face'){
-    //     const face = await axios('https://fakeface.rest/face/json')
-    //     .then(res => res.data)
-    //     client.sendMessage(msg.from, await MessageMedia.fromUrl(face.url))}
-})
-        
+    }msg      
 client.on('message', async msg => {
     if (msg.body === 'pls delete') {
         if (msg.hasQuotedMsg) {
@@ -167,6 +162,7 @@ client.on('message', async msg => {
             }
         }
     }else if(msg.body === "pls sticker"){
+        try{
         if(msg.hasMedia) {
             const sticker = await msg.downloadMedia();
             
@@ -180,6 +176,7 @@ client.on('message', async msg => {
                     msg.reply(sticker, null, { sendMediaAsSticker: true});
                     console.log("Sent a sticker");
         }
+        }catch(err){msg.reply("Media not found, Try resending it")}
     }else if(msg.body === "pls unsticker"){
         if(msg.hasQuotedMsg){
             const quotedMsg = await msg.getQuotedMessage();
@@ -196,8 +193,4 @@ client.on('message', async msg => {
         } catch (e) {
             msg.reply('That invite code seems to be invalid.');
         }
-}} 
-
-
-})  
-;
+}}})})
