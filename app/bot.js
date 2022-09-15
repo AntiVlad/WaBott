@@ -40,6 +40,7 @@ client.on('ready', () => {
     console.log('Client is ready!');
 });
 client.initialize();
+const prefix = 'pls'
 
 const help=`Commands supported  are...
 ping -- pong
@@ -57,9 +58,8 @@ pls everyone -- Mentions everyone in a group(obvs)
 pls delete -- Makes me delete my message 🥺
 
 pls unsticker -- Sticker to Image
-
-
 `
+
 
 
 
@@ -74,7 +74,7 @@ client.on('message', msg => {
         msg.reply('pong');
         console.log(msg.body)
 
-	}else if(msg.body === 'pls help') {
+	}else if(msg.body === `${prefix} help`) {
 		msg.reply(help);
         console.log(msg.body)
 
@@ -105,7 +105,7 @@ client.on('message', msg => {
 
 client.on('message', async (msg) => {
     let chat = await msg.getChat();
-    if(msg.body === 'pls everyone'){
+    if(msg.body === `${prefix} everyone`){
         if (chat.isGroup) {
             
             
@@ -133,64 +133,78 @@ client.on('message', async (msg) => {
              msg.reply('This command can only be used in a group!');
     }}
 
-    if(msg.body==='pls meme'){
+    if(msg.body===`${prefix} meme`){
         const meme = await axios('https://meme-api.herokuapp.com/gimme')
         .then(res => res.data);
         client.sendMessage(msg.from, await MessageMedia.fromUrl(meme.url));
         console.log("sent a meme");
     }msg      
-client.on('message', async msg => {
-    if (msg.body === 'pls delete') {
-        if (msg.hasQuotedMsg) {
-            const quotedMsg = await msg.getQuotedMessage();
-            if (quotedMsg.fromMe) {
-                quotedMsg.delete(true);
-                console.log("Deleted message");
 
-            } else {
-                msg.reply('I can only delete my own messages');
-            }
-        }
-    }else if (msg.body === '/delete') {
+    if (msg.body === `${prefix} delete`) {
         if (msg.hasQuotedMsg) {
-            const quotedMsg = await msg.getQuotedMessage();
-            if (quotedMsg.fromMe) {
-                quotedMsg.delete(true);
-                console.log("Deleted message");
-            } else {
-                msg.reply('I can only delete my own messages');
-            }
+            try{
+                const quotedMsg = await msg.getQuotedMessage();
+                if (quotedMsg.fromMe) {
+                    quotedMsg.delete(true);                    
+                } else {
+                    msg.reply('I can only delete my own messages');
+                }
+            }catch (error) { 
+                    console.error(error)
+                    msg.reply("I cannot delete that message")
+                }
         }
-    }else if(msg.body === "pls sticker"){
-        try{
+    }else if(msg.body === `${prefix} sticker`){
         if(msg.hasMedia) {
-            const sticker = await msg.downloadMedia();
-            
-            msg.reply(sticker, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
-            console.log("Sent a sticker");    
+            try{
+                const sticker = await msg.downloadMedia();      
+                msg.reply(sticker, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
+                console.log("Sent a sticker");    
+            }catch(err){msg.reply("Media not found, Try resending it")
+        }
+
         }else
         if(msg.hasQuotedMsg){
-            const quotedMsg = await msg.getQuotedMessage();
-                    const sticker = await quotedMsg.downloadMedia();
-                    
-                    msg.reply(sticker, null, { sendMediaAsSticker: true});
-                    console.log("Sent a sticker");
-        }
-        }catch(err){msg.reply("Media not found, Try resending it")}
-    }else if(msg.body === "pls unsticker"){
-        if(msg.hasQuotedMsg){
-            const quotedMsg = await msg.getQuotedMessage();
-                    const unsticker = await quotedMsg.downloadMedia();
-                    
-                    msg.reply(unsticker);
-                    console.log("unstickered");
+            try{
 
-    }else if (msg.body.startsWith('pls ')) {
-        const inviteCode = msg.body.split(' ')[1];
+                const quotedMsg = await msg.getQuotedMessage();            
+                const sticker = await quotedMsg.downloadMedia();
+                msg.reply(sticker, null, { sendMediaAsSticker: true});
+                console.log("Sent a sticker");  
+            }catch(err){    
+                console.log(err)
+                msg.reply("Media not found, Try resending it")
+            }
+
+        }else{
+            msg.reply("You have to quote a media message or send a media with the command as its caption")
+        }
+    }else if(msg.body === `${prefix} unsticker`){
+        if(msg.hasQuotedMsg){
+            try{
+                const quotedMsg = await msg.getQuotedMessage();
+                const unsticker = await quotedMsg.downloadMedia();
+                
+                msg.reply(unsticker);
+                console.log("unstickered");
+            }catch(err){    
+                console.log(err)
+                msg.reply("Media not found, Try resending it")
+            }
+
+        }else{
+            msg.reply("You have to quote a sticker")
+        }
+    }else if (msg.body.startsWith(`${prefix} join `)) {
         try {
+            const inviteCode = msg.body.split(' ')[2];
+            console.log(inviteCode)
             await client.acceptInvite(inviteCode);
             msg.reply('Joined the group!');
         } catch (e) {
-            msg.reply('That invite code seems to be invalid.');
+            console.log(e)
+            msg.reply(`
+            `);
         }
-}}})})
+}})
+
