@@ -51,23 +51,20 @@ pls sticker -- The obvious
 
 pls meme -- Send a random meme(Usually stale memes) I dont recommend
 
-pls face -- coming soon
-
 pls everyone -- Mentions everyone in a group(obvs)
 
 pls delete -- Makes me delete my message 🥺
 
 pls unsticker -- Sticker to Image
+
+pls join 'invite ink' -- Makes me join the group
 `
 
 
 
 
 client.on('message', msg => {
-	if(msg.body === '.ping') {
-		msg.reply('pong');
-        console.log(msg.body)
-    }else if(msg.body === 'Ping'){
+	if(msg.body === 'Ping'){
         msg.reply('pong');
         console.log(msg.body)
     }else if(msg.body === 'ping'){
@@ -92,32 +89,18 @@ client.on('message', msg => {
 		
 
     }
-    else if(msg.body === '.help')  {
-		msg.reply('No, say please');
-        console.log(msg.body)
-    
-    }
-}
-
-
-);
-
+});
 
 client.on('message', async (msg) => {
     let chat = await msg.getChat();
     if(msg.body === `${prefix} everyone`){
-        if (chat.isGroup) {
-            
-            
-            const chat = await msg.getChat();
-            
-            
+        if (chat.isGroup) {   
+            const chat = await msg.getChat(); 
             let text = "";
             let mentions = [];
             let grpName=chat.name;
             for(let participant of chat.participants) {
-                const contact = await client.getContactById(participant.id._serialized);
-                
+                const contact = await client.getContactById(participant.id._serialized);       
                 mentions.push(contact);
                 text += `@${participant.id.user} `;
             }
@@ -197,14 +180,14 @@ client.on('message', async (msg) => {
         }
     }else if (msg.body.startsWith(`${prefix} join `)) {
         try {
-            const inviteCode = msg.body.split(' ')[2];
+            const inviteCode = msg.body.split('/')[3]
             console.log(inviteCode)
             await client.acceptInvite(inviteCode);
             msg.reply('Joined the group!');
         } catch (e) {
             console.log(e)
-            msg.reply(`
-            `);
+            msg.reply(`link must be in this format 'https://chat.whatsapp.com/PPfsifnsmolweni'`);
         }
-}})
+    }
+})
 
