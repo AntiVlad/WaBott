@@ -5,6 +5,8 @@ const { default: axios } = require('axios');
 const express = require('express');
 const app = express();
 const request = require('request');
+var fs = require('fs');
+
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: { headless: true },
@@ -117,10 +119,20 @@ client.on('message', async (msg) => {
     }}
 
     if(msg.body===`${prefix} meme`){
-        const meme = await axios('https://meme-api.herokuapp.com/gimme')
-        .then(res => res.data);
-        client.sendMessage(msg.from, await MessageMedia.fromUrl(meme.url));
-        console.log("sent a meme");
+var meme1 = require('./reddit')
+
+        try{
+            meme1()
+            
+            var meme = require('./meme')
+            const media = await MessageMedia.fromUrl(meme.link);
+            chat.sendMessage(media);
+            console.log("sent a meme")
+ 
+                
+        }catch(error){
+            console.log(error)
+        }
     }msg      
 
     if (msg.body === `${prefix} delete`) {

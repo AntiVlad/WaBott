@@ -1,0 +1,1 @@
+module.exports= {link : 'https://i.redd.it/wsexeyh0vgo91.jpg'}
