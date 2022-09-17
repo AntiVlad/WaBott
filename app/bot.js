@@ -5,6 +5,10 @@ const { default: axios } = require('axios');
 const express = require('express');
 const app = express();
 const request = require('request');
+var fs = require('fs');
+const RedditImageFetcher = require("reddit-image-fetcher");
+
+
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: { headless: true },
@@ -45,11 +49,11 @@ const prefix = 'pls'
 const help=`Commands supported  are...
 ping -- pong
 
-pls help -- Brings up this message 
+pls help -- Brings up this message
 
 pls sticker -- The obvious
 
-pls meme -- I send a random meme
+pls meme -- Send a random meme(Usually stale memes) I dont recommend
 
 pls everyone -- Mentions everyone in a group(obvs)
 
@@ -117,10 +121,16 @@ client.on('message', async (msg) => {
     }}
 
     if(msg.body===`${prefix} meme`){
-        const meme = await axios('https://meme-api.herokuapp.com/gimme')
-        .then(res => res.data);
-        client.sendMessage(msg.from, await MessageMedia.fromUrl(meme.url));
-        console.log("sent a meme");
+        try{            
+            RedditImageFetcher.fetch({
+                type: 'meme'
+            }).then(async result => {
+                console.log(result[0].image)
+                const media = await MessageMedia.fromUrl(result[0].image);
+                chat.sendMessage(media);});
+        }catch(error){
+            console.log(error)
+        }
     }msg      
 
     if (msg.body === `${prefix} delete`) {
