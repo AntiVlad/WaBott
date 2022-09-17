@@ -5,6 +5,13 @@ const { default: axios } = require('axios');
 const express = require('express');
 const app = express();
 const request = require('request');
+<<<<<<< Updated upstream
+=======
+var fs = require('fs');
+const RedditImageFetcher = require("reddit-image-fetcher");
+
+
+>>>>>>> Stashed changes
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: { headless: true },
@@ -117,10 +124,25 @@ client.on('message', async (msg) => {
     }}
 
     if(msg.body===`${prefix} meme`){
+<<<<<<< Updated upstream
         const meme = await axios('https://meme-api.herokuapp.com/gimme')
         .then(res => res.data);
         client.sendMessage(msg.from, await MessageMedia.fromUrl(meme.url));
         console.log("sent a meme");
+=======
+        try{            
+            RedditImageFetcher.fetch({
+                type: 'meme'
+            }).then(async result => {
+                console.log(result[0].image)
+                const media = await MessageMedia.fromUrl(result[0].image);
+                chat.sendMessage(media);
+                console.log('saved')
+            });
+        }catch(error){
+            console.log(error)
+        }
+>>>>>>> Stashed changes
     }msg      
 
     if (msg.body === `${prefix} delete`) {
