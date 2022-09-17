@@ -45,7 +45,7 @@ const prefix = 'pls'
 const help=`Commands supported  are...
 ping -- pong
 
-pls help -- Brings up this message
+pls help -- Brings up this message 
 
 pls sticker -- The obvious
 
