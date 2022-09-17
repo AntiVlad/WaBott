@@ -49,7 +49,7 @@ pls help -- Brings up this message
 
 pls sticker -- The obvious
 
-pls meme -- Send a random meme(Usually stale memes) I dont recommend
+pls meme -- I send a random meme
 
 pls everyone -- Mentions everyone in a group(obvs)
 
