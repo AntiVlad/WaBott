@@ -123,7 +123,7 @@ client.on('message', async (msg) => {
     if(msg.body===`${prefix} meme`){
         try{            
             RedditImageFetcher.fetch({
-                type: 'meme'
+                type: 'meme',
             }).then(async result => {
                 console.log(result[0].image)
                 const media = await MessageMedia.fromUrl(result[0].image);

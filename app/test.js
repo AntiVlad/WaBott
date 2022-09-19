@@ -1,21 +1,47 @@
 const RedditImageFetcher = require("reddit-image-fetcher");
 var fs = require('fs');
+const Att  = require('audio-to-text');
+
+
+ 
+// baidu AI application configuration information
+const audio2text = require('audio2text');
+
+const params = {
+    url: 'https://storage.googleapis.com/assets.frapp.in/WhatsApp-Ptt-2020-10-16-at-6.02.22-PM.mp3',
+    runningLength:'short'
+}
+audio2text.recognize(params).then(transcript => {
+	console.log(transcript)
+});
+
 // const axios = require("axios");
 // const meme = require('./bread');
 
+// var tvd = require('twitter-video-downloader');
+// tvd('https://twitter.com/uncensoredpromo/status/1570946915789074432')
+//   .then(function(videoReadableBufferStream) {
+//     fs.writeFile('2pac.mp4', videoReadableBufferStream, (err) => {
+//       // throws an error, you could also catch it here
+//       if (err) throw err;
+  
+//       // success case, the file was saved
+//       console.log('Lyric saved!');
+//   });
+//   }
+// );
 
-
-RedditImageFetcher.fetch({
-    type: 'meme'
-}).then(result => {
-    // console.log( result[0].image);
-    fs.writeFile('meme.js',
-     `module.exports= {link : '${result[0].image}'}`,
-      function (err) {
-        if (err) throw err;
-        // console.log(result[0].image);
-      });
-});
+// RedditImageFetcher.fetch({
+//     type: 'meme'
+// }).then(result => {
+//     // console.log( result[0].image);
+//     fs.writeFile('meme.js',
+//      `module.exports= {link : '${result[0].image}'}`,
+//       function (err) {
+//         if (err) throw err;
+//         // console.log(result[0].image);
+//       });
+// });
 
 // fs.readFile('bread.json', 'utf8', function(err, data){
       
