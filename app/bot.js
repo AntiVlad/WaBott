@@ -1,14 +1,13 @@
+//Dependencies
 const qrcode = require('qrcode-terminal');
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const ffmpeg = require('ffmpeg');
-const { default: axios } = require('axios');
 const express = require('express');
 const app = express();
-const request = require('request');
-var fs = require('fs');
 const RedditImageFetcher = require("reddit-image-fetcher");
+//
 
-
+//Qr-code and Authentication scripts
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: { headless: true },
@@ -18,9 +17,6 @@ const client = new Client({
 }
 });
 
-
-
- 
 app.get('/', (req, res) => {
   res
     .status(200)
@@ -29,7 +25,6 @@ app.get('/', (req, res) => {
     .end();
 });
  
-// Start the server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is Active 
@@ -44,7 +39,9 @@ client.on('ready', () => {
     console.log('Client is ready!');
 });
 client.initialize();
-const prefix = 'pls'
+//
+
+const prefix = 'pls' //Command prefix 
 
 const help=`Commands supported  are...
 ping -- pong
@@ -62,14 +59,14 @@ pls delete -- Makes me delete my message 🥺
 pls unsticker -- Sticker to Image
 
 pls join 'invite ink' -- Makes me join the group
-`
+` // Help content   
 
 
 
-
-client.on('message', msg => {
+//Basic commands
+client.on('message', msg => { /*Message listener*/
 	if(msg.body === 'Ping'){
-        msg.reply('pong');
+        msg.reply('pong');  
         console.log(msg.body)
     }else if(msg.body === 'ping'){
         msg.reply('pong');
@@ -95,7 +92,9 @@ client.on('message', msg => {
     }
 });
 
+
 client.on('message', async (msg) => {
+    /*Mentions everyone in a group */
     let chat = await msg.getChat();
     if(msg.body === `${prefix} everyone`){
         if (chat.isGroup) {   
@@ -119,7 +118,7 @@ client.on('message', async (msg) => {
         }else {
              msg.reply('This command can only be used in a group!');
     }}
-
+    /*Sends a random meme from reddit via reddit-image-fetcher module */
     if(msg.body===`${prefix} meme`){
         try{            
             RedditImageFetcher.fetch({
@@ -131,8 +130,9 @@ client.on('message', async (msg) => {
         }catch(error){
             console.log(error)
         }
-    }msg      
+    }
 
+    /*Deletes a message sent by the bot account*/
     if (msg.body === `${prefix} delete`) {
         if (msg.hasQuotedMsg) {
             try{
@@ -147,6 +147,7 @@ client.on('message', async (msg) => {
                     msg.reply("I cannot delete that message")
                 }
         }
+        /*Turns an image,video or gif to a sticker*/
     }else if(msg.body === `${prefix} sticker`){
         if(msg.hasMedia) {
             try{
@@ -172,6 +173,7 @@ client.on('message', async (msg) => {
         }else{
             msg.reply("You have to quote a media message or send a media with the command as its caption")
         }
+        /*Turns a sticker to an image */
     }else if(msg.body === `${prefix} unsticker`){
         if(msg.hasQuotedMsg){
             try{
@@ -188,6 +190,7 @@ client.on('message', async (msg) => {
         }else{
             msg.reply("You have to quote a sticker")
         }
+        /*Makes the bot account join a group*/
     }else if (msg.body.startsWith(`${prefix} join `)) {
         try {
             const inviteCode = msg.body.split('/')[3]
