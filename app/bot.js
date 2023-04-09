@@ -96,6 +96,11 @@ client.on('message', msg => { /*Message listener*/
 client.on('message', async (msg) => {
     /*Mentions everyone in a group */
     let chat = await msg.getChat();
+    if(msg.body===`${prefix} deez`){
+        const media = await MessageMedia.fromUrl('https://rr2---sn-5pguxaob-copl.googlevideo.com/videoplayback?expire=1681086761&ei=yQQzZKS8L-GvxN8PjI6O2AY&ip=105.113.34.131&id=o-AF_t79tOcCbTmbQY3NMMNv11I1t_GBpHrDyihUsZhjCN&itag=18&source=youtube&requiressl=yes&mh=4H&mm=31%2C29&mn=sn-5pguxaob-copl%2Csn-avn7ln7e&ms=au%2Crdu&mv=m&mvi=2&pl=21&ctier=SH&initcwndbps=266250&spc=99c5CQf2LS7oWQl4M6fdZzt4yVZ9gYk&vprv=1&svpuc=1&mime=video%2Fmp4&gir=yes&clen=1501007&ratebypass=yes&dur=19.968&lmt=1678426562524827&mt=1681064222&fvip=2&fexp=24007246&c=ANDROID&txp=5530434&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cctier%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAPjHn_H12lYIi3B9M9npoioeIPo6YRx1nD-_wuM55j1XAiEA560m3Nh8p_VXFLBTv6wipW5IIPfuepgoGmZstx_iDYc%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAJGJx-4BdtD9cQ7ELK18b54ODGOSQGp0bUZHnVDQWmz4AiAhuPUArTml65RZkzBX9SLmSAH_mCarV3KVjrJ8NfXXOA%3D%3D');
+        chat.sendMessage(media);
+    }
+
     if(msg.body === `${prefix} everyone`){
         if (chat.isGroup) {   
             const chat = await msg.getChat(); 
