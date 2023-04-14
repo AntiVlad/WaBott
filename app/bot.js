@@ -107,8 +107,8 @@ if (msg.body.startsWith(`${prefix} yt `)) {
             continue:true,
             yesOverwrites:true
         })
-        const media = MessageMedia.fromFilePath('ytvideo.mp4');
-        msg.reply(media);
+        const media =await MessageMedia.fromFilePath('ytvideo.mp4');
+        await msg.reply(media);
     } catch (e) {
         console.log(e)
         msg.reply(`Error`);
@@ -119,9 +119,7 @@ if (msg.body === `${prefix} yt`) {
         try{
             const link = await msg.getQuotedMessage();
             console.log(link.body)
-            try{
-
-            
+            try{            
                 await youtubedl(link.body,{
                     format:18,
                     output:"ytvideo.mp4",
@@ -133,8 +131,8 @@ if (msg.body === `${prefix} yt`) {
                 msg.reply("video too large sorry")
             } 
             try{
-                const media = MessageMedia.fromFilePath('ytvideo.mp4');
-                msg.reply(media);
+                const media = await MessageMedia.fromFilePath('ytvideo.mp4');
+                await msg.reply(media);
             }catch(e){
                 console.log(e)
                 msg.reply("Video too large sorry")
