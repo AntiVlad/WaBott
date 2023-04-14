@@ -1,6 +1,8 @@
 const youtubedl = require('youtube-dl-exec')
 
-youtubedl('https://www.youtube.com/shorts/n4xwF5-fj6g',{
+youtubedl('https://youtu.be/DsC8jQXRbQE',{
     format:18,
-    getUrl:true
-}).then(output=> console.log(output))
+    output:"MyVideox.mp4",
+    continue:true,
+    yesOverwrites:true
+})
