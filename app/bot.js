@@ -142,7 +142,7 @@ if (msg.body === `${prefix} yt`) {
                 const authorId = message.author;
             for(let participant of chat.participants) {
                 if(participant.id._serialized === authorId && !participant.isAdmin) {
-                    message.reply(`The \`\`\`${this.name}\`\`\` command can only be used by group admins.`);
+                    msg.reply(`The \`\`\`${this.name}\`\`\` command can only be used by group admins.`);
                 }else{   
                     let text = "";
                     let mentions = [];
