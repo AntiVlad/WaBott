@@ -107,39 +107,29 @@ if (msg.body.startsWith(`${prefix} yt `)) {
             continue:true,
             yesOverwrites:true
         })
-        const media =await MessageMedia.fromFilePath('ytvideo.mp4');
+        const media = MessageMedia.fromFilePath('ytvideo.mp4');
         await msg.reply(media);
     } catch (e) {
         console.log(e)
-        msg.reply(`Error`);
+        msg.reply(`Video too large sorry`);
     }
 }
 if (msg.body === `${prefix} yt`) {
     if (msg.hasQuotedMsg) {
         try{
             const link = await msg.getQuotedMessage();
-            console.log(link.body)
-            try{            
+            console.log(link.body)        
                 await youtubedl(link.body,{
                     format:18,
                     output:"ytvideo.mp4",
                     continue:true,
                     yesOverwrites:true
                 })
-            }catch(e){
-                console.log(e)
-                msg.reply("video too large sorry")
-            } 
-            try{
-                const media = await MessageMedia.fromFilePath('ytvideo.mp4');
+                const media =  MessageMedia.fromFilePath('ytvideo.mp4');
                 await msg.reply(media);
-            }catch(e){
-                console.log(e)
-                msg.reply("Video too large sorry")
-            }
         } catch (e) {
             console.log(e)
-            msg.reply(`Error`);
+            msg.reply(`Video too large sorry`);
         }
     }}    
     /*Mentions everyone in a group */
