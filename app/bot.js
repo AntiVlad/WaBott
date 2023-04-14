@@ -137,27 +137,36 @@ if (msg.body === `${prefix} yt`) {
  
 
     if(msg.body === `${prefix} everyone`){
-        if (chat.isGroup) {   
-            const chat = await msg.getChat(); 
-            let text = "";
-            let mentions = [];
-            let grpName=chat.name;
+        const chat = await msg.getChat();
+        if (chat.isGroup) {
+                const authorId = message.author;
             for(let participant of chat.participants) {
-                const contact = await client.getContactById(participant.id._serialized);       
-                mentions.push(contact);
-                text += `@${participant.id.user} `;
+                if(participant.id._serialized === authorId && !participant.isAdmin) {
+                    message.reply(`The \`\`\`${this.name}\`\`\` command can only be used by group admins.`);
+                }else{   
+                    let text = "";
+                    let mentions = [];
+                    let grpName=chat.name;
+                    for(let participant of chat.participants) {
+                        const contact = await client.getContactById(participant.id._serialized);       
+                        mentions.push(contact);
+                        text += `@${participant.id.user} `;
+                    }
+                    if(msg.hasQuotedMsg){
+                        const quotedMsg = await msg.getQuotedMessage();
+                        await quotedMsg.reply(text,null, { mentions });
+                        console.log(`Tagged all in ${grpName} `);
+                    }else{
+                        await chat.sendMessage(text, { mentions });
+                    }
+    
+                }
             }
-            if(msg.hasQuotedMsg){
-            const quotedMsg = await msg.getQuotedMessage();
-            await quotedMsg.reply(text,null, { mentions });
-            console.log(`Tagged all in ${grpName} `);
         }else{
-            await chat.sendMessage(text, { mentions });
+            msg.reply('This command can only be used in a group!');
         }
-                
-        }else {
-             msg.reply('This command can only be used in a group!');
-    }}
+    }
+    
     /*Sends a random meme from reddit via reddit-image-fetcher module */
     if(msg.body===`${prefix} meme`){
         try{            
