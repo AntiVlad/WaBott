@@ -139,7 +139,7 @@ if (msg.body === `${prefix} yt`) {
     if(msg.body === `${prefix} everyone`){
         const chat = await msg.getChat();
         if (chat.isGroup) {
-                const authorId = message.author;
+                const authorId = msg.author;
             for(let participant of chat.participants) {
                 if(participant.id._serialized === authorId && !participant.isAdmin) {
                     msg.reply(`The \`\`\`${this.name}\`\`\` command can only be used by group admins.`);
