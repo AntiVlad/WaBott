@@ -134,23 +134,6 @@ if (msg.body === `${prefix} yt`) {
             msg.reply(`Video too large sorry`);
         }
     }}    
-    /*Mentions everyone in a group */
-    
- 
-    // function checkAdmin() {
-    //     let chat = await msg.getChat();
-    //     if (chat.isGroup) {
-    //         const authorId = msg.author;
-    //         for(let participant of chat.participants) {
-    //             if(participant.id._serialized === authorId && !participant.isAdmin) {
-    //                             // Here you know they are not an admin
-    //                 msg.reply(`The \`\`\`${this.name}\`\`\` command can only be used by group admins.`);
-    //                 break;
-    //             }
-    //         }
-    //     }
-    // }
-
 
     if(msg.body === `${prefix} everyone`){
         if(msg.hasQuotedMsg){ 
@@ -170,7 +153,7 @@ if (msg.body === `${prefix} yt`) {
     }
     if (msg.body.startsWith(`${prefix} everyone `)) {
         try {
-            const message = msg.body.split(' ')[1]
+            const message = msg.body.slice(12)
             console.log(message)
             msg.reply(`*${message}*`, null, {
                 mentions: chat.participants
