@@ -133,7 +133,7 @@ if (msg.body === `${prefix} yt`) {
         }
     }}    
     /*Mentions everyone in a group */
-    let chat = await msg.getChat();
+    
  
     function checkAdmin() {
         let chat = await msg.getChat();
