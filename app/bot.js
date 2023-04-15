@@ -153,7 +153,7 @@ if (msg.body === `${prefix} yt`) {
     }
     if (msg.body.startsWith(`${prefix} everyone `)) {
         try {
-            const message = msg.body.slice(12)
+            const message = msg.body.slice(13)
             console.log(message)
             msg.reply(`*${message}*`, null, {
                 mentions: chat.participants
