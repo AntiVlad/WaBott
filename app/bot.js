@@ -140,26 +140,27 @@ if (msg.body === `${prefix} yt`) {
         const chat = await msg.getChat();
         if (chat.isGroup) {
                 const authorId = msg.author;
+                let text = "";
+                let mentions = [];
+                let grpName=chat.name;
+                const quotedMsg = await msg.getQuotedMessage();
             for(let participant of chat.participants) {
-                if(participant.id._serialized === authorId && !participant.isAdmin) {
-                    msg.reply(`The \`\`\`${this.name}\`\`\` command can only be used by group admins.`);
-                }else{   
-                    let text = "";
-                    let mentions = [];
-                    let grpName=chat.name;
+                
+                if(participant.id._serialized === authorId && participant.isAdmin) {
+                    
                     for(let participant of chat.participants) {
                         const contact = await client.getContactById(participant.id._serialized);       
                         mentions.push(contact);
                         text += `@${participant.id.user} `;
                     }
                     if(msg.hasQuotedMsg){
-                        const quotedMsg = await msg.getQuotedMessage();
                         await quotedMsg.reply(text,null, { mentions });
                         console.log(`Tagged all in ${grpName} `);
                     }else{
                         await chat.sendMessage(text, { mentions });
                     }
-    
+                }else{   
+                    msg.reply("This command can only beused by admins")
                 }
             }
         }else{
