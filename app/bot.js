@@ -135,19 +135,19 @@ if (msg.body === `${prefix} yt`) {
     /*Mentions everyone in a group */
     
  
-    function checkAdmin() {
-        let chat = await msg.getChat();
-        if (chat.isGroup) {
-            const authorId = msg.author;
-            for(let participant of chat.participants) {
-                if(participant.id._serialized === authorId && !participant.isAdmin) {
-                                // Here you know they are not an admin
-                    msg.reply(`The \`\`\`${this.name}\`\`\` command can only be used by group admins.`);
-                    break;
-                }
-            }
-        }
-    }
+    // function checkAdmin() {
+    //     let chat = await msg.getChat();
+    //     if (chat.isGroup) {
+    //         const authorId = msg.author;
+    //         for(let participant of chat.participants) {
+    //             if(participant.id._serialized === authorId && !participant.isAdmin) {
+    //                             // Here you know they are not an admin
+    //                 msg.reply(`The \`\`\`${this.name}\`\`\` command can only be used by group admins.`);
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // }
 
 
     if(msg.body === `${prefix} everyones`){
