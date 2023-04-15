@@ -150,6 +150,12 @@ if (msg.body === `${prefix} yt`) {
     }
 
 
+    if(msg.body === `${prefix} everyones`){
+        msg.reply('everyone', null, {
+            mentions: chat.participants
+        });
+    }
+
     if(msg.body === `${prefix} everyone`){
         const chat = await msg.getChat();
         if (chat.isGroup && !checkAdmin()) {   
