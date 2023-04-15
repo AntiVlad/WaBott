@@ -152,34 +152,18 @@ if (msg.body === `${prefix} yt`) {
 
     if(msg.body === `${prefix} everyones`){
         const chat = await msg.getChat(); 
-        msg.reply('everyone', null, {
+        msg.reply('*Everyone!*', null, {
             mentions: chat.participants
         });
+        console.log(`Tagged all in ${grpName} `);
+    }else if(msg.hasQuotedMsg){
+        const quotedMsg = await msg.getQuotedMessage();
+        await quotedMsg.reply('*Everyone!*', null, {
+            mentions: chat.participants
+        });
+        console.log(`Tagged all in ${grpName} `);
     }
 
-    if(msg.body === `${prefix} everyone`){
-        const chat = await msg.getChat();
-        if (chat.isGroup && !checkAdmin()) {   
-            const chat = await msg.getChat(); 
-            let text = "";
-            let mentions = [];
-            let grpName=chat.name;
-            for(let participant of chat.participants) {
-                const contact = await client.getContactById(participant.id._serialized);       
-                mentions.push(contact);
-                text += `@${participant.id.user} `;
-            }
-            if(msg.hasQuotedMsg){
-                const quotedMsg = await msg.getQuotedMessage();
-                await quotedMsg.reply(text,null, { mentions });
-                console.log(`Tagged all in ${grpName} `);
-            }else{
-                await chat.sendMessage(text, { mentions });
-            }
-        }else {
-            msg.reply('This command can only be used in a group!');
-        }
-    }
     /*Sends a random meme from reddit via reddit-image-fetcher module */
     if(msg.body===`${prefix} meme`){
         try{            
