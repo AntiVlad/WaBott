@@ -51,10 +51,6 @@ pls help -- Brings up this message
 
 pls sticker -- The obvious
 
-pls meme -- Send a random meme(Usually stale memes) I dont recommend
-
-pls everyone -- Mentions everyone in a group(obvs)
-
 pls delete -- Makes me delete my message 🥺
 
 pls unsticker -- Sticker to Image
@@ -89,6 +85,11 @@ client.on('message', msg => { /*Message listener*/
 
     }else if(msg.body === 'Pls') {
 		msg.reply('No');
+        console.log(msg.body)
+		
+
+    }else if(msg.body === 'Deez') {
+		msg.reply('Nutz');
         console.log(msg.body)
 		
 
