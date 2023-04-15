@@ -151,18 +151,19 @@ if (msg.body === `${prefix} yt`) {
 
 
     if(msg.body === `${prefix} everyone`){
-        const chat = await msg.getChat(); 
-        msg.reply('*Everyone!*', null, {
-            mentions: chat.participants
-        });
-        console.log(`Tagged all `);
-    }else if(msg.hasQuotedMsg){
-        const chat = await msg.getChat(); 
-        const quotedMsg = await msg.getQuotedMessage();
-        await quotedMsg.reply('*Everyone!*', null, {
-            mentions: chat.participants
-        });
-        console.log(`Tagged all  `);
+        if(msg.hasQuotedMsg){ 
+            const chat = await msg.getChat(); 
+            const quotedMsg = await msg.getQuotedMessage();
+            await quotedMsg.reply('*Everyone!*', null, {
+                mentions: chat.participants
+            });
+            console.log(`Tagged all  `);
+        }else{
+            msg.reply('*Everyone!*', null, {
+                mentions: chat.participants
+            });
+            console.log(`Tagged all `);
+        }
     }
 
     /*Sends a random meme from reddit via reddit-image-fetcher module */
