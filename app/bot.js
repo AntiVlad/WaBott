@@ -166,7 +166,17 @@ if (msg.body === `${prefix} yt`) {
             console.log(`Tagged all `);
         }
     }
-
+    if (msg.body.startsWith(`${prefix} everyone `)) {
+        try {
+            const message = msg.body.split(' ')[1]
+            console.log(message)
+            msg.reply(`*${message}*`, null, {
+                mentions: chat.participants
+            });
+        } catch (e) {
+            console.log(e)
+        }
+    }
     /*Sends a random meme from reddit via reddit-image-fetcher module */
     if(msg.body===`${prefix} meme`){
         try{            
