@@ -135,39 +135,44 @@ if (msg.body === `${prefix} yt`) {
     /*Mentions everyone in a group */
     let chat = await msg.getChat();
  
+    function checkAdmin() {
+        let chat = await msg.getChat();
+        if (chat.isGroup) {
+            const authorId = msg.author;
+            for(let participant of chat.participants) {
+                if(participant.id._serialized === authorId && !participant.isAdmin) {
+                                // Here you know they are not an admin
+                    msg.reply(`The \`\`\`${this.name}\`\`\` command can only be used by group admins.`);
+                    break;
+                }
+            }
+        }
+    }
+
 
     if(msg.body === `${prefix} everyone`){
         const chat = await msg.getChat();
-        if (chat.isGroup) {
-                const authorId = msg.author;
-                let text = "";
-                let mentions = [];
-                let grpName=chat.name;
-                const quotedMsg = await msg.getQuotedMessage();
+        if (chat.isGroup && !checkAdmin()) {   
+            const chat = await msg.getChat(); 
+            let text = "";
+            let mentions = [];
+            let grpName=chat.name;
             for(let participant of chat.participants) {
-                
-                if(participant.id._serialized === authorId && participant.isAdmin) {
-                    
-                    for(let participant of chat.participants) {
-                        const contact = await client.getContactById(participant.id._serialized);       
-                        mentions.push(contact);
-                        text += `@${participant.id.user} `;
-                    }
-                    if(msg.hasQuotedMsg){
-                        await quotedMsg.reply(text,null, { mentions });
-                        console.log(`Tagged all in ${grpName} `);
-                    }else{
-                        await chat.sendMessage(text, { mentions });
-                    }
-                }else{   
-                    msg.reply("This command can only beused by admins")
-                }
+                const contact = await client.getContactById(participant.id._serialized);       
+                mentions.push(contact);
+                text += `@${participant.id.user} `;
             }
-        }else{
+            if(msg.hasQuotedMsg){
+                const quotedMsg = await msg.getQuotedMessage();
+                await quotedMsg.reply(text,null, { mentions });
+                console.log(`Tagged all in ${grpName} `);
+            }else{
+                await chat.sendMessage(text, { mentions });
+            }
+        }else {
             msg.reply('This command can only be used in a group!');
         }
     }
-    
     /*Sends a random meme from reddit via reddit-image-fetcher module */
     if(msg.body===`${prefix} meme`){
         try{            
