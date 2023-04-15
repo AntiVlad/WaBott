@@ -157,6 +157,7 @@ if (msg.body === `${prefix} yt`) {
         });
         console.log(`Tagged all in ${grpName} `);
     }else if(msg.hasQuotedMsg){
+        const chat = await msg.getChat(); 
         const quotedMsg = await msg.getQuotedMessage();
         await quotedMsg.reply('*Everyone!*', null, {
             mentions: chat.participants
