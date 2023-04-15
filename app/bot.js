@@ -151,6 +151,7 @@ if (msg.body === `${prefix} yt`) {
 
 
     if(msg.body === `${prefix} everyones`){
+        const chat = await msg.getChat(); 
         msg.reply('everyone', null, {
             mentions: chat.participants
         });
