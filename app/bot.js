@@ -159,6 +159,7 @@ if (msg.body === `${prefix} yt`) {
             });
             console.log(`Tagged all  `);
         }else{
+            const chat = await msg.getChat(); 
             msg.reply('*Everyone!*', null, {
                 mentions: chat.participants
             });
