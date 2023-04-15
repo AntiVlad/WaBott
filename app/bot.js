@@ -97,6 +97,8 @@ client.on('message', msg => { /*Message listener*/
 
 
 client.on('message', async (msg) => {
+const chat = await msg.getChat(); 
+
 if (msg.body.startsWith(`${prefix} yt `)) {
     try {
         const link = msg.body.split(' ')[2]
