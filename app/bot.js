@@ -141,18 +141,34 @@ if (msg.body === `${prefix} yt`) {
             const link = await msg.getQuotedMessage();
             console.log(link.body)        
             const { exec } = require('child_process');
-            const cmdCommand = `yt-dlp --output vid.mp4 ${link.body}`;
-            await exec(cmdCommand, (error, stdout, stderr) => {
+            const { exec } = require('child_process');
+
+            function runCommand(cmdCommand) {
+            return new Promise((resolve, reject) => {
+                exec(cmdCommand, (error, stdout, stderr) => {
                 if (error) {
-                    console.error(`Error: ${error.message}`);
+                    reject(`Error: ${error.message}`);
                     return;
                 }
                 if (stderr) {
-                    console.error(`stderr: ${stderr}`);
+                    reject(`stderr: ${stderr}`);
                     return;
                 }
-                console.log(`stdout: ${stdout}`);
+                resolve(stdout);
+                });
             });
+            }
+
+            async function main() {
+            try {
+                const cmdCommand = `yt-dlp --output vid.mp4 ${link.body}`;
+                const stdout = await runCommand(cmdCommand);
+                console.log(`Command output: ${stdout}`);
+            } catch (error) {
+                console.error(`Error executing command: ${error}`);
+            }
+            }
+            await main();
             const media =  MessageMedia.fromFilePath('vid.mp4');
                 await msg.reply(media);
         }catch (e) {
