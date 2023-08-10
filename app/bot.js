@@ -238,11 +238,11 @@ if (msg.body === `${prefix} delete`) {
             if (quotedMsg.fromMe) {
                 await quotedMsg.delete(true);                    
             } else {
-                msg.reply('I can only delete my own messages');
+                msg.reply('No');
             }
         }catch (error) { 
                 console.error(error)
-                msg.reply("I cannot delete that message")
+                msg.reply("No bitch!")
             }
     }
     /*Turns an image,video or gif to a sticker*/
