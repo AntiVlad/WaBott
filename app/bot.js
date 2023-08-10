@@ -141,8 +141,6 @@ if (msg.body === `${prefix} yt`) {
             const link = await msg.getQuotedMessage();
             console.log(link.body)        
             const { exec } = require('child_process');
-            const { exec } = require('child_process');
-
             function runCommand(cmdCommand) {
             return new Promise((resolve, reject) => {
                 exec(cmdCommand, (error, stdout, stderr) => {
