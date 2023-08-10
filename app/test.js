@@ -1,19 +1,43 @@
-const RedditImageFetcher = require("reddit-image-fetcher");
-var fs = require('fs');
-const Att  = require('audio-to-text');
+
+const { exec } = require('child_process');
+
+// Replace 'your-command-here' with the actual command you want to run
+const cmdCommand = 'dir';
+
+exec(cmdCommand, (error, stdout, stderr) => {
+  if (error) {
+    console.error(`Error: ${error.message}`);
+    return;
+  }
+  if (stderr) {
+    console.error(`stderr: ${stderr}`);
+    return;
+  }
+  console.log(`stdout: ${stdout}`);
+});
+
+
+
+
+
+
+
+// const RedditImageFetcher = require("reddit-image-fetcher");
+// var fs = require('fs');
+// const Att  = require('audio-to-text');
 
 
  
-// baidu AI application configuration information
-const audio2text = require('audio2text');
+// // baidu AI application configuration information
+// const audio2text = require('audio2text');
 
-const params = {
-    url: 'https://storage.googleapis.com/assets.frapp.in/WhatsApp-Ptt-2020-10-16-at-6.02.22-PM.mp3',
-    runningLength:'short'
-}
-audio2text.recognize(params).then(transcript => {
-	console.log(transcript)
-});
+// const params = {
+//     url: 'https://storage.googleapis.com/assets.frapp.in/WhatsApp-Ptt-2020-10-16-at-6.02.22-PM.mp3',
+//     runningLength:'short'
+// }
+// audio2text.recognize(params).then(transcript => {
+// 	console.log(transcript)
+// });
 
 // const axios = require("axios");
 // const meme = require('./bread');

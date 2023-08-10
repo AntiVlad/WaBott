@@ -17,13 +17,14 @@
     "http-errors": "~1.6.3",
     "jade": "^0.31.2",
     "morgan": "~1.9.1",
+    "openai": "^3.3.0",
     "puppeteer": "^16.2.0",
     "qrcode-terminal": "^0.12.0",
     "reddit-image-fetcher": "^2.0.11",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "twitter-video-downloader": "^1.0.13",
-    "whatsapp-web.js": "^1.19.5",
+    "whatsapp-web.js": "^1.21.0",
     "youtube-dl-exec": "^2.4.0"
   },
   "engines": {

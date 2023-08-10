@@ -134,7 +134,32 @@ if (msg.body === `${prefix} yt`) {
             console.log(e)
             msg.reply(`Video too large sorry`);
         }
-    }}    
+    }}   
+
+    if (msg.body === `${prefix} dl`) {    
+        try{
+            const link = await msg.getQuotedMessage();
+            console.log(link.body)        
+            const { exec } = require('child_process');
+            const cmdCommand = `yt-dlp --output vid.mp4 ${link.body}`;
+            await exec(cmdCommand, (error, stdout, stderr) => {
+                if (error) {
+                    console.error(`Error: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    console.error(`stderr: ${stderr}`);
+                    return;
+                }
+                console.log(`stdout: ${stdout}`);
+            });
+            const media =  MessageMedia.fromFilePath('vid.mp4');
+                await msg.reply(media);
+        }catch (e) {
+            console.log(e)
+            msg.reply(`Video too large sorry`);
+        }
+    }
 
     if(msg.body === `${prefix} everyone`){
         if(msg.hasQuotedMsg){ 
@@ -177,6 +202,23 @@ if (msg.body === `${prefix} yt`) {
         }
     }
 
+    const isAdmin = (member, chat) => {
+        if (!chat.isGroup) return true; 
+        const userid = normalize(member) //msg.author?.slice(0, -5) || '';
+        /* --- Actual admin check --- */
+        for (let i = 0; i < chat.participants.length; i++) {
+            if (!!chat.participants[i].isAdmin && (chat.participants[i].id.user == userid)) 
+                return true;
+        }
+        return false;
+    }
+
+    if(msg.body === "test"){
+        if(isAdmin(msg.body,chat )){
+            msg.reply("worked")
+        }
+    }
+
     /*Deletes a message sent by the bot account*/
     if (msg.body === `${prefix} delete`) {
         if (msg.hasQuotedMsg) {
@@ -210,7 +252,7 @@ if (msg.body === `${prefix} yt`) {
                 const sticker = await quotedMsg.downloadMedia();
                 msg.reply(sticker, null, { sendMediaAsSticker: true});
                 console.log("Sent a sticker");  
-            }catch(err){    
+            }catch(err){   
                 console.log(err)
                 msg.reply("Media not found, Try resending it")
             }
@@ -248,4 +290,6 @@ if (msg.body === `${prefix} yt`) {
         }
     }
 })
+
+
 
