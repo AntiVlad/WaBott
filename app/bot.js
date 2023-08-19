@@ -45,19 +45,19 @@ client.initialize();
 const prefix = 'pls' //Command prefix 
 
 const help=`Commands supported  are...
-ping -- pong
+ping 
 
-pls help -- Brings up this message
+pls help
 
-pls sticker -- The obvious
+pls sticker 
 
-pls delete -- Makes me delete my message 🥺
+pls delete 
 
-pls unsticker -- Sticker to Image
+pls unsticker
 
-pls join 'invite ink' -- Makes me join the group
+pls join 'invite ink' 
 
-pls dl "video link" -- Makes me download and send a the video
+pls dl "video link"
 ` // Help content   
 
 
@@ -98,8 +98,7 @@ client.on('message', async (msg) => {
 const chat = await msg.getChat(); 
 if (msg.body.startsWith(`${prefix} dl `)) {
     try {
-        const link = msg.body.split(' ')[2]
-        console.log(link.body)        
+        console.log(msg.body)        
         const { exec } = require('child_process');
         function runCommand(cmdCommand) {
         return new Promise((resolve, reject) => {
@@ -215,7 +214,7 @@ if(msg.body===`${prefix} meme`){
 
 const isAdmin = (member, chat) => {
     if (!chat.isGroup) return true; 
-    const userid = normalize(member) //msg.author?.slice(0, -5) || '';
+    const userid = normalize(member) 
     /* --- Actual admin check --- */
     for (let i = 0; i < chat.participants.length; i++) {
         if (!!chat.participants[i].isAdmin && (chat.participants[i].id.user == userid)) 
