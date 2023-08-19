@@ -96,28 +96,28 @@ client.on('message', msg => {
 
 client.on('message', async (msg) => {
 const chat = await msg.getChat(); 
-if (msg.body.startsWith(`${prefix} dl `)) {
+if (msg.body.includes(`${prefix} dl`)|| msg.body.includes(`Pls dl`) ) {
     try {
         console.log(msg.body)        
         const { exec } = require('child_process');
         function runCommand(cmdCommand) {
-        return new Promise((resolve, reject) => {
-            exec(cmdCommand, (error, stdout, stderr) => {
-            if (error) {
-                reject(`Error: ${error.message}`);
-                return;
-            }
-            if (stderr) {
-                reject(`stderr: ${stderr}`);
-                return;
-            }
-            resolve(stdout);
+            return new Promise((resolve, reject) => {
+                exec(cmdCommand, (error, stdout, stderr) => {
+                if (error) {
+                    reject(`Error: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    reject(`stderr: ${stderr}`);
+                    return;
+                }
+                resolve(stdout);
+                });
             });
-        });
         }
         async function main() {
         try {
-            const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites ${link.body}`;
+            const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites ${msg.body}`;
             const stdout = await runCommand(cmdCommand);
             console.log(`Command output: ${stdout}`);
         } catch (error) {
@@ -139,19 +139,19 @@ if (msg.body === `${prefix} dl`) {
         console.log(link.body)        
         const { exec } = require('child_process');
         function runCommand(cmdCommand) {
-        return new Promise((resolve, reject) => {
-            exec(cmdCommand, (error, stdout, stderr) => {
-            if (error) {
-                reject(`Error: ${error.message}`);
-                return;
-            }
-            if (stderr) {
-                reject(`stderr: ${stderr}`);
-                return;
-            }
-            resolve(stdout);
+            return new Promise((resolve, reject) => {
+                exec(cmdCommand, (error, stdout, stderr) => {
+                if (error) {
+                    reject(`Error: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    reject(`stderr: ${stderr}`);
+                    return;
+                }
+                resolve(stdout);
+                });
             });
-        });
         }
         async function main() {
         try {
