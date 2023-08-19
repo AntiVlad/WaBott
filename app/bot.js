@@ -131,45 +131,83 @@ if (msg.body.includes(`${prefix} dl`)|| msg.body.includes(`Pls dl`) ) {
         console.log(e)
         msg.reply(`Welp, Error`);
     }
+
+    if (msg.hasQuotedMsg) {
+        try{
+            const link = await msg.getQuotedMessage();
+            console.log(link.body)        
+            const { exec } = require('child_process');
+            function runCommand(cmdCommand) {
+                return new Promise((resolve, reject) => {
+                    exec(cmdCommand, (error, stdout, stderr) => {
+                    if (error) {
+                        reject(`Error: ${error.message}`);
+                        return;
+                    }
+                    if (stderr) {
+                        reject(`stderr: ${stderr}`);
+                        return;
+                    }
+                    resolve(stdout);
+                    });
+                });
+            }
+            async function main() {
+                try {
+                    const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites ${link.body}`;
+                    const stdout = await runCommand(cmdCommand);
+                    console.log(`Command output: ${stdout}`);
+                } catch (error) {
+                    console.error(`Error executing command: ${error}`);
+                }
+            }
+            await main();
+            const media =  MessageMedia.fromFilePath('vid.mp4');
+            await msg.reply(media);
+        }catch (e) {
+            console.log(e)
+            msg.reply(`Welp, Error`);
+        }
+    }    
 }
 
-if (msg.body === `${prefix} dl`) {    
-    try{
-        const link = await msg.getQuotedMessage();
-        console.log(link.body)        
-        const { exec } = require('child_process');
-        function runCommand(cmdCommand) {
-            return new Promise((resolve, reject) => {
-                exec(cmdCommand, (error, stdout, stderr) => {
-                if (error) {
-                    reject(`Error: ${error.message}`);
-                    return;
-                }
-                if (stderr) {
-                    reject(`stderr: ${stderr}`);
-                    return;
-                }
-                resolve(stdout);
-                });
-            });
-        }
-        async function main() {
-        try {
-            const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites ${link.body}`;
-            const stdout = await runCommand(cmdCommand);
-            console.log(`Command output: ${stdout}`);
-        } catch (error) {
-            console.error(`Error executing command: ${error}`);
-        }
-        }
-        await main();
-        const media =  MessageMedia.fromFilePath('vid.mp4');
-            await msg.reply(media);
-    }catch (e) {
-        console.log(e)
-        msg.reply(`Welp, Error`);
-    }
-}
+// if (msg.body === `${prefix} dl`) {    
+//     try{
+//         const link = await msg.getQuotedMessage();
+//         console.log(link.body)        
+//         const { exec } = require('child_process');
+//         function runCommand(cmdCommand) {
+//             return new Promise((resolve, reject) => {
+//                 exec(cmdCommand, (error, stdout, stderr) => {
+//                 if (error) {
+//                     reject(`Error: ${error.message}`);
+//                     return;
+//                 }
+//                 if (stderr) {
+//                     reject(`stderr: ${stderr}`);
+//                     return;
+//                 }
+//                 resolve(stdout);
+//                 });
+//             });
+//         }
+//         async function main() {
+//         try {
+//             const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites ${link.body}`;
+//             const stdout = await runCommand(cmdCommand);
+//             console.log(`Command output: ${stdout}`);
+//         } catch (error) {
+//             console.error(`Error executing command: ${error}`);
+//         }
+//         }
+//         await main();
+//         const media =  MessageMedia.fromFilePath('vid.mp4');
+//             await msg.reply(media);
+//     }catch (e) {
+//         console.log(e)
+//         msg.reply(`Welp, Error`);
+//     }
+// }
 
 if(msg.body === `${prefix} everyone`){
     if(msg.hasQuotedMsg){ 
