@@ -310,7 +310,7 @@ if (msg.body === `${prefix} delete`) {
         msg.reply(`link must be in this format 'https://chat.whatsapp.com/EUg3MA4iWe29dw9iUJxT1n' `);
     }
 } if(msg.body.startsWith(`${prefix} sticker -c `)){
-    const caption = msg.body.split(" ")[3]
+    const caption = msg.body.replace(`${prefix} sticker -c`," ")
     const quotedMsg = await msg.getQuotedMessage();            
     const Waimage = await quotedMsg.downloadMedia();
     // console.log(Waimage)
@@ -326,7 +326,7 @@ if (msg.body === `${prefix} delete`) {
         ctx.drawImage(image, 0, 0);
     
         // Set text styles
-        const fontSize = 40;
+        const fontSize = 55;
         ctx.font = `${fontSize}px Corbel`;
         ctx.fillStyle = 'white';
         ctx.strokeStyle = 'black';
@@ -351,7 +351,7 @@ if (msg.body === `${prefix} delete`) {
         const outputImage = 'output.jpg';
         const Text = caption;
         
-        addText(inputImage, outputImage, Text);
+        await addText(inputImage, outputImage, Text);
         const media = MessageMedia.fromFilePath('output.jpg');
         msg.reply(media, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
     }catch(e){
