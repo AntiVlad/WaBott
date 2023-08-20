@@ -326,8 +326,9 @@ if (msg.body === `${prefix} delete`) {
         ctx.drawImage(image, 0, 0);
     
         // Set text styles
-        const fontSize = 40;
-        ctx.font = `${fontSize}px Impact`;
+        const fontPath = path.join(__dirname, 'Impact.ttf');
+        ctx.font = `40px Impact`; 
+        ctx.addFont(fontPath, 'Impact'); 
         ctx.fillStyle = 'white';
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 3;
