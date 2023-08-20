@@ -329,8 +329,8 @@ if (msg.body === `${prefix} delete`) {
         const fontSize = 40;
         ctx.font = `${fontSize}px Corbel`;
         ctx.fillStyle = 'white';
-        ctx.strokeStyle = 'white';
-        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 1;
         ctx.textAlign = 'center';
     
         // Add bottom text
