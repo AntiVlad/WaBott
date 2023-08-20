@@ -314,21 +314,38 @@ if (msg.body === `${prefix} delete`) {
     const quotedMsg = await msg.getQuotedMessage();            
     const Waimage = await quotedMsg.downloadMedia();
     // console.log(Waimage)
-
-    if (Waimage.mimetype.startsWith('image/')) {
-        const fileName = `input.jpg`; // Create a unique filename
-        const filePath = `./${fileName}`; // Set the path to save the image
-
-        // Save the image to the specified path
-        fs.writeFile(filePath, Waimage.data, 'base64', (error) => {
-            if (error) {
-                console.error('Error saving image:', error);
-            } else {
-                console.log('Image saved successfully:', fileName);
+   
+    function saveImageToPath(imageData) {
+        return new Promise((resolve, reject) => {
+            if (!imageData || !imageData.mimetype.startsWith('image/')) {
+                reject(new Error('Invalid image data'));
+                return;
             }
+
+            const fileName = `input.jpg`; // Create a unique filename
+            const filePath = `./${fileName}`; // Set the path to save the image
+
+            fs.writeFile(filePath, imageData.data, 'base64', (error) => {
+                if (error) {
+                    console.error('Error saving image:', error);
+                    reject(error);
+                } else {
+                    console.log('Image saved successfully:', fileName);
+                    resolve(filePath);
+                }
+            });
         });
     }
 
+    // Usage
+
+    await saveImageToPath(Waimage)
+        .then((filePath) => {
+            console.log('Image saved at:', filePath);
+        })
+        .catch((error) => {
+            console.error('Error saving image:', error);
+        });
 
 
     function addText(inputImagePath, outputImagePath, text) {
