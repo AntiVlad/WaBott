@@ -327,6 +327,7 @@ if (msg.body === `${prefix} delete`) {
                 console.log('Image saved successfully:', fileName);
             }
         });
+    }
 
 
 
