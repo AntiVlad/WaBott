@@ -311,8 +311,8 @@ if (msg.body === `${prefix} delete`) {
 } if(msg.body.startsWith(`${prefix} sticker -c `)){
     const caption = msg.body.split(" ")[2]
     const quotedMsg = await msg.getQuotedMessage();            
-    const image = await quotedMsg.downloadMedia();
-
+    const Waimage = await quotedMsg.downloadMedia();
+    console.log(Waimage)
     async function addText(inputImagePath, outputImagePath, Text) {
         // Load the input image
         const image = await loadImage(inputImagePath);
@@ -344,12 +344,14 @@ if (msg.body === `${prefix} delete`) {
     }
     
     // Usage
-    const inputImage = image;
+    const inputImage = Waimage;
     const outputImage = 'output.jpg';
     const Text = caption;
     
     addText(inputImage, outputImage, Text);
-    msg.reply(outputImage, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
+    const media = MessageMedia.fromFilePath('output.jpg');
+    msg.reply(media, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
+    
 
 }
 
