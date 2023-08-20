@@ -314,49 +314,64 @@ if (msg.body === `${prefix} delete`) {
     const quotedMsg = await msg.getQuotedMessage();            
     const Waimage = await quotedMsg.downloadMedia();
     // console.log(Waimage)
-    async function addText(inputImagePath, outputImagePath, Text) {
-        // Load the input image
-        const image = await loadImage(inputImagePath);
-    
-        // Create a canvas with the same dimensions as the image
-        const canvas = createCanvas(image.width, image.height);
-        const ctx = canvas.getContext('2d');
-    
-        // Draw the image on the canvas
-        ctx.drawImage(image, 0, 0);
-    
-        // Set text styles
-        const fontSize = 55;
-        ctx.font = `${fontSize}px Corbel`;
-        ctx.fillStyle = 'white';
-        ctx.strokeStyle = 'black';
-        ctx.lineWidth = 1;
-        ctx.textAlign = 'center';
-    
-        // Add bottom text
-        ctx.fillText(Text, canvas.width / 2, canvas.height - fontSize);
-        ctx.strokeText(Text, canvas.width / 2, canvas.height - fontSize);
-    
-        // Save the resulting image
-        const stream = canvas.createPNGStream();
-        const out = require('fs').createWriteStream(outputImagePath);
-        stream.pipe(out);
-        out.on('finish', () => console.log('Image saved'));
+    function addText(inputImagePath, outputImagePath, text) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // Load the input image
+                const image = await loadImage(inputImagePath);
+            
+                // Create a canvas with the same dimensions as the image
+                const canvas = createCanvas(image.width, image.height);
+                const ctx = canvas.getContext('2d');
+            
+                // Draw the image on the canvas
+                ctx.drawImage(image, 0, 0);
+            
+                // Set text styles
+                const fontSize = 55;
+                ctx.font = `${fontSize}px Corbel`;
+                ctx.fillStyle = 'white';
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 2;
+                ctx.textAlign = 'center';
+            
+                // Add bottom text
+                ctx.fillText(text, canvas.width / 2, canvas.height - fontSize);
+                ctx.strokeText(text, canvas.width / 2, canvas.height - fontSize);
+            
+                // Save the resulting image
+                const stream = canvas.createPNGStream();
+                const out = require('fs').createWriteStream(outputImagePath);
+                stream.pipe(out);
+                out.on('finish', () => {
+                    console.log('Image saved');
+                    resolve(outputImagePath); // Resolve the promise with the outputImagePath
+                });
+            } catch (error) {
+                reject(error); // Reject the promise with the error
+            }
+        });
     }
     
     // Usage
+    const inputImage = './R.png';
+    const outputImage = 'output.jpg';
+    const text = caption;
+    
+    addText(inputImage, outputImage, text)
+        .then((outputImagePath) => {
+            console.log(`Image saved at: ${outputImagePath}`);
+            const media = MessageMedia.fromFilePath('output.jpg');
+            msg.reply(media, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    
+   
 
-    try{
-        const inputImage = "./R.png";
-        const outputImage = 'output.jpg';
-        const Text = caption;
+    
         
-        await addText(inputImage, outputImage, Text);
-        const media = MessageMedia.fromFilePath('output.jpg');
-        msg.reply(media, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
-    }catch(e){
-        console.log("hmm")
-    }
 
 }
 
