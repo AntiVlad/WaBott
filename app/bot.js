@@ -4,7 +4,6 @@ const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const ffmpeg = require('ffmpeg');
 const express = require('express');
 const app = express();
-const path = require('path');
 const fs = require('fs')
 const RedditImageFetcher = require("reddit-image-fetcher");
 const { createCanvas, loadImage } = require('canvas');
@@ -327,9 +326,8 @@ if (msg.body === `${prefix} delete`) {
         ctx.drawImage(image, 0, 0);
     
         // Set text styles
-        const fontPath = path.join(__dirname, 'Impact.ttf');
-        ctx.font = `40px Impact`; 
-        ctx.addFont(fontPath, 'Impact'); 
+        const fontSize = 40;
+        ctx.font = `${fontSize}px Corbel`;
         ctx.fillStyle = 'white';
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 3;
