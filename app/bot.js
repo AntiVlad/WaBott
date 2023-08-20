@@ -4,6 +4,7 @@ const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const ffmpeg = require('ffmpeg');
 const express = require('express');
 const app = express();
+const path = require('path');
 const fs = require('fs')
 const RedditImageFetcher = require("reddit-image-fetcher");
 const { createCanvas, loadImage } = require('canvas');
