@@ -310,7 +310,7 @@ if (msg.body === `${prefix} delete`) {
         msg.reply(`link must be in this format 'https://chat.whatsapp.com/EUg3MA4iWe29dw9iUJxT1n' `);
     }
 } if(msg.body.startsWith(`${prefix} sticker -c `)){
-    const caption = msg.body.split(" ")[2]
+    const caption = msg.body.split(" ")[3]
     const quotedMsg = await msg.getQuotedMessage();            
     const Waimage = await quotedMsg.downloadMedia();
     // console.log(Waimage)
