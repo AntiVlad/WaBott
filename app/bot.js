@@ -313,7 +313,7 @@ if (msg.body === `${prefix} delete`) {
     const caption = msg.body.split(" ")[2]
     const quotedMsg = await msg.getQuotedMessage();            
     const Waimage = await quotedMsg.downloadMedia();
-    console.log(Waimage)
+    // console.log(Waimage)
     async function addText(inputImagePath, outputImagePath, Text) {
         // Load the input image
         const image = await loadImage(inputImagePath);
@@ -346,19 +346,17 @@ if (msg.body === `${prefix} delete`) {
     
     // Usage
 
-    if(Waimage){
-        const options = { encoding: 'base64' }
-  
-        fs.writeFileSync(Waimage.filename, Waimage.data, options)
+    try{
+        const inputImage = "./R.png";
+        const outputImage = 'output.jpg';
+        const Text = caption;
+        
+        addText(inputImage, outputImage, Text);
+        const media = MessageMedia.fromFilePath('output.jpg');
+        msg.reply(media, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
+    }catch(e){
+        console.log("hmm")
     }
-    const inputImage = Waimage;
-    const outputImage = 'output.jpg';
-    const Text = caption;
-    
-    addText(inputImage, outputImage, Text);
-    const media = MessageMedia.fromFilePath('output.jpg');
-    msg.reply(media, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
-    
 
 }
 
