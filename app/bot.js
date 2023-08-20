@@ -99,7 +99,7 @@ const chat = await msg.getChat();
 if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.hasQuotedMsg ) {
     const link = msg.body.replace("Pls dl","")
     try {
-        console.log(msg.body)        
+        console.log(link)        
         const { exec } = require('child_process');
         function runCommand(cmdCommand) {
             return new Promise((resolve, reject) => {
