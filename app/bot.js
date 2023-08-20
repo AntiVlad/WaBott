@@ -53,6 +53,8 @@ pls help
 
 pls sticker 
 
+pls sticker -c "caption"
+
 pls delete 
 
 pls unsticker
