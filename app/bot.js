@@ -329,7 +329,7 @@ if (msg.body === `${prefix} delete`) {
         const fontSize = 40;
         ctx.font = `${fontSize}px Corbel`;
         ctx.fillStyle = 'white';
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = 'white';
         ctx.lineWidth = 3;
         ctx.textAlign = 'center';
     
