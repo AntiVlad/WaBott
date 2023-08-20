@@ -5,6 +5,7 @@ const ffmpeg = require('ffmpeg');
 const express = require('express');
 const app = express();
 const RedditImageFetcher = require("reddit-image-fetcher");
+const { createCanvas, loadImage } = require('canvas');
 const youtubedl = require('youtube-dl-exec')
 //
 
