@@ -96,7 +96,8 @@ client.on('message', msg => {
 
 client.on('message', async (msg) => {
 const chat = await msg.getChat(); 
-if (msg.body.includes(`${prefix} dl `) || msg.body.includes(`Pls dl `) && !msg.hasQuotedMsg ) {
+if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.hasQuotedMsg ) {
+    const link = msg.body.replace("Pls dl","")
     try {
         console.log(msg.body)        
         const { exec } = require('child_process');
@@ -116,13 +117,13 @@ if (msg.body.includes(`${prefix} dl `) || msg.body.includes(`Pls dl `) && !msg.h
             });
         }
         async function main() {
-        try {
-            const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites ${msg.body}`;
-            const stdout = await runCommand(cmdCommand);
-            console.log(`Command output: ${stdout}`);
-        } catch (error) {
-            console.error(`Error executing command: ${error}`);
-        }
+            try {
+                const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites ${link}`;
+                const stdout = await runCommand(cmdCommand);
+                console.log(`Command output: ${stdout}`);
+            } catch (error) {
+                console.error(`Error executing command: ${error}`);
+            }
         }
         await main();
         const media =  MessageMedia.fromFilePath('vid.mp4');
@@ -164,7 +165,7 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
         }
         await main();
         const media =  MessageMedia.fromFilePath('vid.mp4');
-            await msg.reply(media);
+        await msg.reply(media);
     }catch (e) {
         console.log(e)
         msg.reply(`Welp, Error`);
