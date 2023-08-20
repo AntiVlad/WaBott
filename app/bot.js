@@ -187,8 +187,8 @@ if(msg.body === `${prefix} everyone`){
     if(msg.hasQuotedMsg){ 
         const chat = await msg.getChat(); 
         const quotedMsg = await msg.getQuotedMessage();
-        await quotedMsg.reply(`${quotedMsg.body}`, null, {
-            mentions: chat.participants
+        await quotedMsg.reply(`${quotedMsg.body}`, null, { 
+            mentions: chat.participants.map(({ id }) => id._serialized) 
         });
         console.log(`Tagged all  `);
     }else{
