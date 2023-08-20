@@ -317,7 +317,7 @@ if (msg.body === `${prefix} delete`) {
 
     if (Waimage.mimetype.startsWith('image/')) {
         const fileName = `input.jpg`; // Create a unique filename
-        const filePath = `/`; // Set the path to save the image
+        const filePath = `./`; // Set the path to save the image
 
         // Save the image to the specified path
         fs.writeFile(filePath, Waimage.data, 'base64', (error) => {
