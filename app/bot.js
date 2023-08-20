@@ -97,7 +97,15 @@ client.on('message', msg => {
 client.on('message', async (msg) => {
 const chat = await msg.getChat(); 
 if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.hasQuotedMsg ) {
-    const link = msg.body.replace("Pls dl","")
+    function replace(o, s, r) {
+        const regex = new RegExp(s, 'gi'); // 'gi' stands for global and case-insensitive
+        return o.replace(regex, r);
+    }    
+    const string = msg.body;
+    const s = "pls dl";
+    const r = " ";
+    
+    const link = replace(string, s, r);
     try {
         console.log(link)        
         const { exec } = require('child_process');
