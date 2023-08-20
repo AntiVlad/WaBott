@@ -203,7 +203,7 @@ if (msg.body.startsWith(`${prefix} everyone `)) {
     try {
         const message = msg.body.slice(13)
         console.log(message)
-        msg.reply(`*${message}*`, null, { mentions: chat.participants.map(({ id }) => id._serialized) }
+        msg.reply(`*${message}*`, null, { mentions: chat.participants.map(({ id }) => id._serialized) });
     } catch (e) {
         console.log(e)
     }
