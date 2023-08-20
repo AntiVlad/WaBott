@@ -129,13 +129,14 @@ if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.has
                 const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites ${link}`;
                 const stdout = await runCommand(cmdCommand);
                 console.log(`Command output: ${stdout}`);
+                const media =  MessageMedia.fromFilePath('vid.mp4');
+                await msg.reply(media);
             } catch (error) {
                 console.error(`Error executing command: ${error}`);
             }
         }
         await main();
-        const media =  MessageMedia.fromFilePath('vid.mp4');
-            await msg.reply(media);
+        
     }catch (e) {
         console.log(e)
         msg.reply(`Welp, Error`);
