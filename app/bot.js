@@ -328,7 +328,7 @@ if (msg.body === `${prefix} delete`) {
                 ctx.drawImage(image, 0, 0);
             
                 // Set text styles
-                const fontSize = 55;
+                const fontSize = 70;
                 ctx.font = `${fontSize}px Corbel`;
                 ctx.fillStyle = 'white';
                 ctx.strokeStyle = 'black';
