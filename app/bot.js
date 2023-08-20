@@ -314,6 +314,22 @@ if (msg.body === `${prefix} delete`) {
     const quotedMsg = await msg.getQuotedMessage();            
     const Waimage = await quotedMsg.downloadMedia();
     // console.log(Waimage)
+
+    if (Waimage.mimetype.startsWith('image/')) {
+        const fileName = `input.jpg`; // Create a unique filename
+        const filePath = `/`; // Set the path to save the image
+
+        // Save the image to the specified path
+        fs.writeFile(filePath, Waimage.data, 'base64', (error) => {
+            if (error) {
+                console.error('Error saving image:', error);
+            } else {
+                console.log('Image saved successfully:', fileName);
+            }
+        });
+
+
+
     function addText(inputImagePath, outputImagePath, text) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -328,7 +344,7 @@ if (msg.body === `${prefix} delete`) {
                 ctx.drawImage(image, 0, 0);
             
                 // Set text styles
-                const fontSize = 70;
+                const fontSize = 80;
                 ctx.font = `${fontSize}px Corbel`;
                 ctx.fillStyle = 'white';
                 ctx.strokeStyle = 'black';
@@ -345,16 +361,16 @@ if (msg.body === `${prefix} delete`) {
                 stream.pipe(out);
                 out.on('finish', () => {
                     console.log('Image saved');
-                    resolve(outputImagePath); // Resolve the promise with the outputImagePath
+                    resolve(outputImagePath); 
                 });
             } catch (error) {
-                reject(error); // Reject the promise with the error
+                reject(error); 
             }
         });
     }
     
     // Usage
-    const inputImage = './R.png';
+    const inputImage = './input.jpg';
     const outputImage = 'output.jpg';
     const text = caption;
     
