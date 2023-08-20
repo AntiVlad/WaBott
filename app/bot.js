@@ -186,21 +186,26 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
 }
 
 if(msg.body === `${prefix} everyone`){
-    if(msg.hasQuotedMsg){ 
-        const chat = await msg.getChat(); 
-        const quotedMsg = await msg.getQuotedMessage();
-        await quotedMsg.reply(`${quotedMsg.body}`, null, { 
-            mentions: chat.participants.map(({ id }) => id._serialized) 
-        });
-        console.log(`Tagged all  `);
-    }else{
-        const chat = await msg.getChat(); 
-        msg.reply('*Everyone!*', null, {
-            mentions: chat.participants
-        });
-        console.log(`Tagged all `);
+    try{
+        if(msg.hasQuotedMsg){ 
+            const chat = await msg.getChat(); 
+            const quotedMsg = await msg.getQuotedMessage();
+            await quotedMsg.reply(`${quotedMsg.body}`, null, { 
+                mentions: chat.participants.map(({ id }) => id._serialized) 
+            });
+            console.log(`Tagged all  `);
+        }else{
+            const chat = await msg.getChat(); 
+            msg.reply('*Everyone!*', null, {
+                mentions: chat.participants
+            });
+            console.log(`Tagged all `);
+        }
+    }catch(e){
+        console.log(e)
+    }    
     }
-}
+
 if (msg.body.startsWith(`${prefix} everyone `)) {
     try {
         const message = msg.body.slice(13)
