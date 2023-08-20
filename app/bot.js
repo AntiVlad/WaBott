@@ -98,7 +98,7 @@ client.on('message', async (msg) => {
 const chat = await msg.getChat(); 
 if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.hasQuotedMsg ) {
     function replace(o, s, r) {
-        const regex = new RegExp(s, 'gi'); // 'gi' stands for global and case-insensitive
+        const regex = new RegExp(s, 'gi'); 
         return o.replace(regex, r);
     }    
     const string = msg.body;
