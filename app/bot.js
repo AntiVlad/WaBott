@@ -4,6 +4,7 @@ const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const ffmpeg = require('ffmpeg');
 const express = require('express');
 const app = express();
+const fs = require('fs')
 const RedditImageFetcher = require("reddit-image-fetcher");
 const { createCanvas, loadImage } = require('canvas');
 const youtubedl = require('youtube-dl-exec')
@@ -344,6 +345,12 @@ if (msg.body === `${prefix} delete`) {
     }
     
     // Usage
+
+    if(Waimage){
+        const options = { encoding: 'base64' }
+  
+        fs.writeFileSync(Waimage.filename, Waimage.data, options)
+    }
     const inputImage = Waimage;
     const outputImage = 'output.jpg';
     const Text = caption;
