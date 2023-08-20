@@ -308,7 +308,51 @@ if (msg.body === `${prefix} delete`) {
         console.log(e)
         msg.reply(`link must be in this format 'https://chat.whatsapp.com/EUg3MA4iWe29dw9iUJxT1n' `);
     }
-} 
+} if(msg.body.startsWith(`${prefix} sticker -c `)){
+    const caption = msg.body.split(" ")[2]
+    const quotedMsg = await msg.getQuotedMessage();            
+    const image = await quotedMsg.downloadMedia();
+
+    async function addText(inputImagePath, outputImagePath, Text) {
+        // Load the input image
+        const image = await loadImage(inputImagePath);
+    
+        // Create a canvas with the same dimensions as the image
+        const canvas = createCanvas(image.width, image.height);
+        const ctx = canvas.getContext('2d');
+    
+        // Draw the image on the canvas
+        ctx.drawImage(image, 0, 0);
+    
+        // Set text styles
+        const fontSize = 40;
+        ctx.font = `${fontSize}px Impact`;
+        ctx.fillStyle = 'white';
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 3;
+        ctx.textAlign = 'center';
+    
+        // Add bottom text
+        ctx.fillText(Text, canvas.width / 2, canvas.height - fontSize);
+        ctx.strokeText(Text, canvas.width / 2, canvas.height - fontSize);
+    
+        // Save the resulting image
+        const stream = canvas.createPNGStream();
+        const out = require('fs').createWriteStream(outputImagePath);
+        stream.pipe(out);
+        out.on('finish', () => console.log('Image saved'));
+    }
+    
+    // Usage
+    const inputImage = image;
+    const outputImage = 'output.jpg';
+    const Text = caption;
+    
+    addText(inputImage, outputImage, Text);
+    msg.reply(outputImage, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
+
+}
+
 })
 
 
