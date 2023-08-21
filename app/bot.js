@@ -7,7 +7,7 @@ const app = express();
 const fs = require('fs')
 const RedditImageFetcher = require("reddit-image-fetcher");
 const { createCanvas, loadImage } = require('canvas');
-const youtubedl = require('youtube-dl-exec')
+
 //
 
 //Qr-code and Authentication scripts
@@ -315,98 +315,101 @@ if (msg.body === `${prefix} delete`) {
         msg.reply(`link must be in this format 'https://chat.whatsapp.com/EUg3MA4iWe29dw9iUJxT1n' `);
     }
 } if(msg.body.startsWith(`${prefix} sticker -c `)){
-    const caption = msg.body.replace(`${prefix} sticker -c`," ")
-    const quotedMsg = await msg.getQuotedMessage();            
-    const Waimage = await quotedMsg.downloadMedia();
-    // console.log(Waimage)
-   
-    function saveImageToPath(imageData) {
-        return new Promise((resolve, reject) => {
-            if (!imageData || !imageData.mimetype.startsWith('image/')) {
-                reject(new Error('Invalid image data'));
-                return;
-            }
+    try{
+        const caption = msg.body.replace(`${prefix} sticker -c`," ")
+        const quotedMsg = await msg.getQuotedMessage();            
+        const Waimage = await quotedMsg.downloadMedia();
+        // console.log(Waimage)
+    
+        function saveImageToPath(imageData) {
+            return new Promise((resolve, reject) => {
+                if (!imageData || !imageData.mimetype.startsWith('image/')) {
+                    reject(new Error('Invalid image data'));
+                    return;
+                }
 
-            const fileName = `input.jpg`; // Create a unique filename
-            const filePath = `./${fileName}`; // Set the path to save the image
+                const fileName = `input.jpg`; // Create a unique filename
+                const filePath = `./${fileName}`; // Set the path to save the image
 
-            fs.writeFile(filePath, imageData.data, 'base64', (error) => {
-                if (error) {
-                    console.error('Error saving image:', error);
-                    reject(error);
-                } else {
-                    console.log('Image saved successfully:', fileName);
-                    resolve(filePath);
+                fs.writeFile(filePath, imageData.data, 'base64', (error) => {
+                    if (error) {
+                        console.error('Error saving image:', error);
+                        reject(error);
+                    } else {
+                        console.log('Image saved successfully:', fileName);
+                        resolve(filePath);
+                    }
+                });
+            });
+        }
+
+        // Usage
+
+        await saveImageToPath(Waimage)
+            .then((filePath) => {
+                console.log('Image saved at:', filePath);
+            })
+            .catch((error) => {
+                console.error('Error saving image:', error);
+            });
+
+
+        function addText(inputImagePath, outputImagePath, text) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    // Load the input image
+                    const image = await loadImage(inputImagePath);
+                
+                    // Create a canvas with the same dimensions as the image
+                    const canvas = createCanvas(image.width, image.height);
+                    const ctx = canvas.getContext('2d');
+                
+                    // Draw the image on the canvas
+                    ctx.drawImage(image, 0, 0);
+                
+                    // Set text styles
+                    const fontSize = 150;
+                    ctx.font = `${fontSize}px Corbel`;
+                    ctx.fillStyle = 'white';
+                    ctx.strokeStyle = 'black';
+                    ctx.lineWidth = 2;
+                    ctx.textAlign = 'center';
+                
+                    // Add bottom text
+                    ctx.fillText(text, canvas.width / 2, canvas.height - fontSize);
+                    ctx.strokeText(text, canvas.width / 2, canvas.height - fontSize);
+                
+                    // Save the resulting image
+                    const stream = canvas.createPNGStream();
+                    const out = require('fs').createWriteStream(outputImagePath);
+                    stream.pipe(out);
+                    out.on('finish', () => {
+                        console.log('Image saved');
+                        resolve(outputImagePath); 
+                    });
+                } catch (error) {
+                    reject(error); 
                 }
             });
-        });
+        }
+        
+        // Usage
+        const inputImage = './input.jpg';
+        const outputImage = 'output.jpg';
+        const text = caption;
+        
+        addText(inputImage, outputImage, text)
+            .then((outputImagePath) => {
+                console.log(`Image saved at: ${outputImagePath}`);
+                const media = MessageMedia.fromFilePath('output.jpg');
+                msg.reply(media, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }catch(e){
+        console.log(e)
     }
-
-    // Usage
-
-    await saveImageToPath(Waimage)
-        .then((filePath) => {
-            console.log('Image saved at:', filePath);
-        })
-        .catch((error) => {
-            console.error('Error saving image:', error);
-        });
-
-
-    function addText(inputImagePath, outputImagePath, text) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                // Load the input image
-                const image = await loadImage(inputImagePath);
-            
-                // Create a canvas with the same dimensions as the image
-                const canvas = createCanvas(image.width, image.height);
-                const ctx = canvas.getContext('2d');
-            
-                // Draw the image on the canvas
-                ctx.drawImage(image, 0, 0);
-            
-                // Set text styles
-                const fontSize = 150;
-                ctx.font = `${fontSize}px Corbel`;
-                ctx.fillStyle = 'white';
-                ctx.strokeStyle = 'black';
-                ctx.lineWidth = 2;
-                ctx.textAlign = 'center';
-            
-                // Add bottom text
-                ctx.fillText(text, canvas.width / 2, canvas.height - fontSize);
-                ctx.strokeText(text, canvas.width / 2, canvas.height - fontSize);
-            
-                // Save the resulting image
-                const stream = canvas.createPNGStream();
-                const out = require('fs').createWriteStream(outputImagePath);
-                stream.pipe(out);
-                out.on('finish', () => {
-                    console.log('Image saved');
-                    resolve(outputImagePath); 
-                });
-            } catch (error) {
-                reject(error); 
-            }
-        });
-    }
-    
-    // Usage
-    const inputImage = './input.jpg';
-    const outputImage = 'output.jpg';
-    const text = caption;
-    
-    addText(inputImage, outputImage, text)
-        .then((outputImagePath) => {
-            console.log(`Image saved at: ${outputImagePath}`);
-            const media = MessageMedia.fromFilePath('output.jpg');
-            msg.reply(media, null, {stickerAuthor: 'Your fav bot :)' ,sendMediaAsSticker: true});
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    
    
 
     
