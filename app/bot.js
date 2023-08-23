@@ -190,7 +190,7 @@ if(msg.body === `${prefix} everyone`){
         if(msg.hasQuotedMsg){ 
             const chat = await msg.getChat(); 
             const quotedMsg = await msg.getQuotedMessage();
-            await quotedMsg.reply(`Everyone!`, null, { 
+            await quotedMsg.reply(`*Everyone!*`, null, { 
                 mentions: chat.participants.map(({ id }) => id._serialized) 
             });
             console.log(`Tagged all  `);
@@ -371,7 +371,7 @@ if (msg.body === `${prefix} delete`) {
                     const maxFontSize = Math.min(image.width, image.height) * 0.1; // Adjust the size as needed
                     ctx.fillStyle = 'white';
                     ctx.strokeStyle = 'black';
-                    ctx.lineWidth = Math.ceil(maxFontSize * 0.1); // Adjust the outline width as needed
+                    ctx.lineWidth = 2;; // Adjust the outline width as needed
                     ctx.textAlign = 'center';
 
                     // Measure the text width for scaling
