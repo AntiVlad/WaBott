@@ -375,7 +375,7 @@ if (msg.body === `${prefix} delete`) {
                     ctx.textAlign = 'center';
 
                     // Measure the text width for scaling
-                    const textMetrics = ctx.measureText(bottomText);
+                    const textMetrics = ctx.measureText(text);
                     const textWidth = textMetrics.width;
                 
                     // Calculate text positioning based on canvas and image dimensions
