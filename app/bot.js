@@ -389,8 +389,8 @@ if (msg.body === `${prefix} delete`) {
                     const y = canvas.height - fontSize - 10; // Place text a bit above the bottom
 
                     // Add bottom text
-                    ctx.fillText(bottomText, x, y);
-                    ctx.strokeText(bottomText, x, y);
+                    ctx.fillText(text, x, y);
+                    ctx.strokeText(text, x, y);
                 
                     // Save the resulting image
                     const stream = canvas.createPNGStream();
