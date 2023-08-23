@@ -379,7 +379,7 @@ if (msg.body === `${prefix} delete`) {
                     const textWidth = textMetrics.width;
 
                     // Calculate font size to fit within 80% of the canvas width
-                    const fontSize = Math.min(maxFontSize, (0.8 * canvas.width * maxFontSize) / textWidth);
+                    const fontSize = Math.min(maxFontSize, (0.95 * canvas.width * maxFontSize) / textWidth);
 
                     // Set the font size
                     ctx.font = `${fontSize}px Corbel`;
