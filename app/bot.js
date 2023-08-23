@@ -377,6 +377,12 @@ if (msg.body === `${prefix} delete`) {
                     // Measure the text width for scaling
                     const textMetrics = ctx.measureText(text);
                     const textWidth = textMetrics.width;
+
+                    // Calculate font size to fit within 80% of the canvas width
+                    const fontSize = Math.min(maxFontSize, (0.8 * canvas.width * maxFontSize) / textWidth);
+
+                    // Set the font size
+                    ctx.font = `${fontSize}px Corbel`;
                 
                     // Calculate text positioning based on canvas and image dimensions
                     const x = canvas.width / 2;
