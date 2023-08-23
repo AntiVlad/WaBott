@@ -368,16 +368,23 @@ if (msg.body === `${prefix} delete`) {
                     ctx.drawImage(image, 0, 0);
                 
                     // Set text styles
-                    const fontSize = 150;
-                    ctx.font = `${fontSize}px Corbel`;
+                    const maxFontSize = Math.min(image.width, image.height) * 0.1; // Adjust the size as needed
                     ctx.fillStyle = 'white';
                     ctx.strokeStyle = 'black';
-                    ctx.lineWidth = 2;
+                    ctx.lineWidth = Math.ceil(maxFontSize * 0.1); // Adjust the outline width as needed
                     ctx.textAlign = 'center';
+
+                    // Measure the text width for scaling
+                    const textMetrics = ctx.measureText(bottomText);
+                    const textWidth = textMetrics.width;
                 
+                    // Calculate text positioning based on canvas and image dimensions
+                    const x = canvas.width / 2;
+                    const y = canvas.height - fontSize - 10; // Place text a bit above the bottom
+
                     // Add bottom text
-                    ctx.fillText(text, canvas.width / 2, canvas.height - fontSize);
-                    ctx.strokeText(text, canvas.width / 2, canvas.height - fontSize);
+                    ctx.fillText(bottomText, x, y);
+                    ctx.strokeText(bottomText, x, y);
                 
                     // Save the resulting image
                     const stream = canvas.createPNGStream();
