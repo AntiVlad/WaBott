@@ -314,7 +314,18 @@ if (msg.body === `${prefix} delete`) {
         console.log(e)
         msg.reply(`link must be in this format 'https://chat.whatsapp.com/EUg3MA4iWe29dw9iUJxT1n' `);
     }
-} if(msg.body.startsWith(`${prefix} sticker -c `)){
+}else if(msg.body === `${prefix} resend`){
+    if(msg.hasMedia) {
+        try{
+            const message = await msg.downloadMedia();      
+            msg.reply(message);
+            console.log("Resent a media");    
+        }catch(err){
+            msg.reply("Media not found, Try resending it")
+        }
+    }}
+    
+    if(msg.body.startsWith(`${prefix} sticker -c `)){
     try{
         const caption = msg.body.replace(`${prefix} sticker -c`," ")
         const quotedMsg = await msg.getQuotedMessage();            
