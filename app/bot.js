@@ -150,17 +150,9 @@ if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.has
 if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {    
     try{
         const link = await msg.getQuotedMessage();
-        function replace(o, s, r) {
-            const regex = new RegExp(s, 'gi'); 
-            return o.replace(regex, r);
-        }    
-        const string = link;
-        const s = "pls dl";
-        const r = "";
-        
-        const linkk = replace(string, s, r);
-        console.log(linkk)
+        console.log(link.body)        
         const { exec } = require('child_process');
+        const linkk = link.body.replace("pls dl","")
         function runCommand(cmdCommand) {
             return new Promise((resolve, reject) => {
                 exec(cmdCommand, (error, stdout, stderr) => {
@@ -178,7 +170,7 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
         }
         async function main() {
         try {
-            const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites "${linkk}"`;
+            const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites "${linkk.body}"`;
             const stdout = await runCommand(cmdCommand);
             console.log(`Command output: ${stdout}`);
         } catch (error) {
