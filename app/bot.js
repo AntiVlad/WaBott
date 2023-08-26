@@ -150,7 +150,6 @@ if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.has
 if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {    
     try{
         const link = await msg.getQuotedMessage();
-        console.log(link.body)        
         function replace(o, s, r) {
             const regex = new RegExp(s, 'gi'); 
             return o.replace(regex, r);
