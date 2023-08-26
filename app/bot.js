@@ -107,7 +107,7 @@ if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.has
     }    
     const string = msg.body;
     const s = "pls dl";
-    const r = " ";
+    const r = "";
     
     const link = replace(string, s, r);
     try {
@@ -130,10 +130,10 @@ if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.has
         }
         async function main() {
             try {
-                const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites "${link}"`;
+                const cmdCommand = `yt-dlp --output vid1.mp4 --force-overwrites '${link}'`;
                 const stdout = await runCommand(cmdCommand);
                 console.log(`Command output: ${stdout}`);
-                const media =  MessageMedia.fromFilePath('vid.mp4');
+                const media =  MessageMedia.fromFilePath('vid1.mp4');
                 await msg.reply(media);
             } catch (error) {
                 console.error(`Error executing command: ${error}`);
@@ -169,7 +169,7 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
         }
         async function main() {
         try {
-            const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites "${link.body}"`;
+            const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites '${link.body}'`;
             const stdout = await runCommand(cmdCommand);
             console.log(`Command output: ${stdout}`);
         } catch (error) {
