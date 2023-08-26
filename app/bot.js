@@ -315,9 +315,10 @@ if (msg.body === `${prefix} delete`) {
         msg.reply(`link must be in this format 'https://chat.whatsapp.com/EUg3MA4iWe29dw9iUJxT1n' `);
     }
 }else if(msg.body === `${prefix} resend`){
-    if(msg.hasMedia) {
+    if(msg.hasQuotedMsg) {
         try{
-            const message = await msg.downloadMedia();      
+            const quotedMsg = await msg.getQuotedMessage();    
+            const message = await quotedMsg.downloadMedia();
             msg.reply(message);
             console.log("Resent a media");    
         }catch(err){
