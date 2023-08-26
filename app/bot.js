@@ -152,7 +152,6 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
         const link = await msg.getQuotedMessage();
         console.log(link.body)        
         const { exec } = require('child_process');
-        const linkk = link.body.replace("pls dl","")
         function runCommand(cmdCommand) {
             return new Promise((resolve, reject) => {
                 exec(cmdCommand, (error, stdout, stderr) => {
@@ -170,7 +169,7 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
         }
         async function main() {
         try {
-            const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites "${linkk.body}"`;
+            const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites "${link.body}"`;
             const stdout = await runCommand(cmdCommand);
             console.log(`Command output: ${stdout}`);
         } catch (error) {
