@@ -160,6 +160,7 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
         const r = "";
         
         const linkk = replace(string, s, r);
+        console.log(linkk)
         const { exec } = require('child_process');
         function runCommand(cmdCommand) {
             return new Promise((resolve, reject) => {
