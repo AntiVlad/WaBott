@@ -232,7 +232,7 @@ if(msg.body===`${prefix} meme`){
 
 const isAdmin = (member, chat) => {
     if (!chat.isGroup) return true; 
-    const userid = member.normalize("NFC") 
+    const userid = member.normalize("NFD") 
     
     /* --- Actual admin check --- */
     for (let i = 0; i < chat.participants.length; i++) {
@@ -244,6 +244,8 @@ const isAdmin = (member, chat) => {
 
 if(msg.body === "test"){
     const chat1 = await msg.getChat(); 
+    console.log(msg.author)
+
     try{
         if(isAdmin(msg.author,chat1 )){
             msg.reply("worked")
