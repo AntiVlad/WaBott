@@ -63,6 +63,8 @@ pls unsticker
 pls join 'invite ink' 
 
 pls dl "video link"
+
+pls everyone  (admins only)
 ` // Help content   
 
 
@@ -237,22 +239,6 @@ if(msg.body===`${prefix} meme`){
             chat.sendMessage(media);});
     }catch(error){
         console.log(error)
-    }
-}
-
-
-if(msg.body === "test"){
-    const chat1 = await msg.getChat(); 
-    console.log(msg.author)
-
-    try{
-        if(isAdmin(msg.author,chat1 )){
-            msg.reply("worked")
-        }else{
-            msg.reply("youre not an admin")
-        }
-    }catch(e){
-        console.log("Failed")
     }
 }
 
