@@ -241,8 +241,11 @@ const isAdmin = (member, chat) => {
 }
 
 if(msg.body === "test"){
-    if(isAdmin(msg.body,chat )){
+    const chat1 = await msg.getChat(); 
+    if(isAdmin(msg.author,chat1 )){
         msg.reply("worked")
+    }else{
+        msg.reply("youre not an admin")
     }
 }
 
