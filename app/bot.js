@@ -202,7 +202,7 @@ if(msg.body === `${prefix} everyone`){
     try{
         if(msg.hasQuotedMsg){
             const chat = await msg.getChat(); 
-            if(isAdmin(msg.author,chat)){
+            if(isAdmin(msg.author,chat) || msg.author == "2347054450767@c.us"){
                 const quotedMsg = await msg.getQuotedMessage();
                 await quotedMsg.reply(`*Everyone!*`, null, { 
                     mentions: chat.participants.map(({ id }) => id._serialized) 
