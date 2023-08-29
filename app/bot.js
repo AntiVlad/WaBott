@@ -8,6 +8,7 @@ const fs = require('fs')
 const RedditImageFetcher = require("reddit-image-fetcher");
 const { createCanvas, loadImage } = require('canvas');
 
+
 //
 
 //Qr-code and Authentication scripts
@@ -231,7 +232,8 @@ if(msg.body===`${prefix} meme`){
 
 const isAdmin = (member, chat) => {
     if (!chat.isGroup) return true; 
-    const userid = normalize(member) 
+    const userid = member.normalize("NFC") 
+    
     /* --- Actual admin check --- */
     for (let i = 0; i < chat.participants.length; i++) {
         if (!!chat.participants[i].isAdmin && (chat.participants[i].id.user == userid)) 
@@ -242,10 +244,14 @@ const isAdmin = (member, chat) => {
 
 if(msg.body === "test"){
     const chat1 = await msg.getChat(); 
-    if(isAdmin(msg.author,chat1 )){
-        msg.reply("worked")
-    }else{
-        msg.reply("youre not an admin")
+    try{
+        if(isAdmin(msg.author,chat1 )){
+            msg.reply("worked")
+        }else{
+            msg.reply("youre not an admin")
+        }
+    }catch(e){
+        console.log("Failed")
     }
 }
 
