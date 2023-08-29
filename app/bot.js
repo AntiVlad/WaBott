@@ -100,6 +100,18 @@ client.on('message', msg => {
 
 
 client.on('message', async (msg) => {
+
+const isAdmin = (member, chat) => {
+    if (!chat.isGroup) return true; 
+    const userid = member.slice(0, -5) 
+    
+    /* --- Actual admin check --- */
+    for (let i = 0; i < chat.participants.length; i++) {
+        if (!!chat.participants[i].isAdmin && (chat.participants[i].id.user == userid)) 
+            return true;
+    }
+    return false;
+}
 const chat = await msg.getChat(); 
 if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.hasQuotedMsg ) {
     function replace(o, s, r) {
@@ -188,19 +200,17 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
 
 if(msg.body === `${prefix} everyone`){
     try{
-        if(msg.hasQuotedMsg){ 
+        if(msg.hasQuotedMsg){
             const chat = await msg.getChat(); 
-            const quotedMsg = await msg.getQuotedMessage();
-            await quotedMsg.reply(`*Everyone!*`, null, { 
-                mentions: chat.participants.map(({ id }) => id._serialized) 
-            });
-            console.log(`Tagged all  `);
-        }else{
-            const chat = await msg.getChat(); 
-            msg.reply('*Everyone!*', null, {
-                mentions: chat.participants
-            });
-            console.log(`Tagged all `);
+            if(isAdmin(msg.author,chat)){
+                const quotedMsg = await msg.getQuotedMessage();
+                await quotedMsg.reply(`*Everyone!*`, null, { 
+                    mentions: chat.participants.map(({ id }) => id._serialized) 
+                });
+                console.log(`Tagged all  `);
+            }else{
+                msg.reply("You must be an admin to use this")
+            }
         }
     }catch(e){
         console.log(e)
@@ -230,17 +240,6 @@ if(msg.body===`${prefix} meme`){
     }
 }
 
-const isAdmin = (member, chat) => {
-    if (!chat.isGroup) return true; 
-    const userid = member.slice(0, -5) 
-    
-    /* --- Actual admin check --- */
-    for (let i = 0; i < chat.participants.length; i++) {
-        if (!!chat.participants[i].isAdmin && (chat.participants[i].id.user == userid)) 
-            return true;
-    }
-    return false;
-}
 
 if(msg.body === "test"){
     const chat1 = await msg.getChat(); 
