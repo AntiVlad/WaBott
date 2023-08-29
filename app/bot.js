@@ -232,7 +232,7 @@ if(msg.body===`${prefix} meme`){
 
 const isAdmin = (member, chat) => {
     if (!chat.isGroup) return true; 
-    const userid = member.normalize("NFD") 
+    const userid = member.normalize("NFKC") 
     
     /* --- Actual admin check --- */
     for (let i = 0; i < chat.participants.length; i++) {
