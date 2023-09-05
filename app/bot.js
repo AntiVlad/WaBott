@@ -327,6 +327,7 @@ if (msg.body === `${prefix} delete`) {
     try{
         if(!qtmsg.hasMedia){
             msg.reply(qtmsg.body)
+            console.log(msgg)
             console.log(qtmsg)
             console.log("resent a qt msg")
         }else{
