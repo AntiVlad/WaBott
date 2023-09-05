@@ -177,7 +177,7 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
                 if (stderr) {
                     reject(`stderr: ${stderr}`);
                     return;
-                }
+                }`  `
                 resolve(stdout);
                 });
             });
@@ -320,7 +320,25 @@ if (msg.body === `${prefix} delete`) {
         }catch(err){
             msg.reply("Media not found, Try resending it")
         }
-    }}
+    }
+}else if(msg.body === `${prefix} resend qt`){
+    try{
+        if(!msg.hasMedia){
+            const msgg = msg.getQuotedMessage();
+            const qtmsg = (await msgg).getQuotedMessage;
+            msg.reply(qtmsg)
+            console.log("resent a qt msg")
+        }else{
+            const msgg = msg.getQuotedMessage();  
+            const qtmsg = (await msgg).getQuotedMessage;
+            const caption = qtmsg.body;
+            const media = await qtmsg.downloadMedia();
+            msg.reply(caption,media);
+        }
+    }catch(e){
+        console.log(e)
+    }
+}
     
     if(msg.body.startsWith(`${prefix} sticker -c `)){
     try{
