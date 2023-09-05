@@ -322,11 +322,12 @@ if (msg.body === `${prefix} delete`) {
         }
     }
 }else if(msg.body === `${prefix} resend qt`){
+    const msgg = msg.getQuotedMessage();
+    const qtmsg = (await msgg).getQuotedMessage;
     try{
-        if(!msg.hasMedia){
-            const msgg = msg.getQuotedMessage();
-            const qtmsg = (await msgg).getQuotedMessage;
-            msg.reply(qtmsg)
+        if(!qtmsg.hasMedia){
+            msg.reply(qtmsg.body)
+            console.log(qtmsg)
             console.log("resent a qt msg")
         }else{
             const msgg = msg.getQuotedMessage();  
