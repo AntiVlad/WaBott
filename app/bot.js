@@ -97,7 +97,7 @@ client.on('message', msg => {
     }else if(msg.body === 'Deez') {
 		msg.reply('Nutz');
         console.log(msg.body)
-    }else if(msg.body.isMe) {
+    }else if(msg.body === '@2348157701961') {
 		msg.reply('Hey');
         console.log(msg.body)
     }
