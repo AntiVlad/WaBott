@@ -97,6 +97,9 @@ client.on('message', msg => {
     }else if(msg.body === 'Deez') {
 		msg.reply('Nutz');
         console.log(msg.body)
+    }else if(msg.body === '@2348157701961') {
+		msg.reply('Hey');
+        console.log(msg.body)
     }
 });
 
@@ -321,26 +324,6 @@ if (msg.body === `${prefix} delete`) {
             msg.reply("Media not found, Try resending it")
         }
     }}
-// else if(msg.body === `${prefix} resend qt`){
-//     const msgg = msg.getQuotedMessage();
-//     const qtmsg = (await msgg).getQuotedMessage;
-//     try{
-//         if(!qtmsg.hasMedia){
-//             msg.reply(qtmsg.body)
-//             console.log(msgg)
-//             console.log(qtmsg)                  //scrapped
-//             console.log("resent a qt msg")
-//         }else{
-//             const msgg = msg.getQuotedMessage();  
-//             const qtmsg = (await msgg).getQuotedMessage;
-//             const caption = qtmsg.body;
-//             const media = await qtmsg.downloadMedia();
-//             msg.reply(caption,media);
-//         }
-//     }catch(e){
-//         console.log(e)
-//     }
-// }
     
     if(msg.body.startsWith(`${prefix} sticker -c `)){
     try{
@@ -356,8 +339,8 @@ if (msg.body === `${prefix} delete`) {
                     return;
                 }
 
-                const fileName = `input.jpg`; // Create a unique filename
-                const filePath = `./${fileName}`; // Set the path to save the image
+                const fileName = `input.jpg`; 
+                const filePath = `./${fileName}`; 
 
                 fs.writeFile(filePath, imageData.data, 'base64', (error) => {
                     if (error) {
