@@ -201,7 +201,7 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
     }
 }
 
-if(msg.body === `${prefix} everyone` || '.everyone'){
+if(msg.body === `${prefix} everyone`){
     try{
         if(msg.hasQuotedMsg){
             const chat = await msg.getChat(); 
@@ -219,7 +219,24 @@ if(msg.body === `${prefix} everyone` || '.everyone'){
         console.log(e)
     }    
     }
-
+if(msg.body === `..`){
+    try{
+        if(msg.hasQuotedMsg){
+            const chat = await msg.getChat(); 
+            if(isAdmin(msg.author,chat) || msg.author == "2347054450767@c.us" || msg.author == "2348173399072@c.us"){
+                const quotedMsg = await msg.getQuotedMessage();
+                await quotedMsg.reply(`*Everyone!*`, null, { 
+                    mentions: chat.participants.map(({ id }) => id._serialized) 
+                });
+                console.log(`Tagged all  `);
+            }else{
+                msg.reply("You must be an admin to use this")
+            }
+        }
+    }catch(e){
+        console.log(e)
+    }    
+    }
 if (msg.body.startsWith(`${prefix} everyone `)) {
     try {
         const message = msg.body.slice(13)
