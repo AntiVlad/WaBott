@@ -201,7 +201,7 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
     }
 }
 
-if(msg.body === `${prefix} everyone` || 'everyone'){
+if(msg.body === `${prefix} everyone` || '.everyone'){
     try{
         if(msg.hasQuotedMsg){
             const chat = await msg.getChat(); 
