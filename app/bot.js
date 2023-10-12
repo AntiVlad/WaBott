@@ -48,23 +48,23 @@ client.initialize();
 const prefix = 'pls' //Command prefix 
 
 const help=`Commands supported  are...
-ping 
+ping -- To test if the bot is active
 
-pls help
+pls help -- To bring up this message
 
-pls sticker 
+pls sticker -- To turn an image/video to a sticker(send the image/video with the command as the caption or tag an image/video with the command)
 
-pls sticker -c "caption"
+pls sticker -c "caption" -- Turns an image to a sticker but you can add any caption of your choice together with the command 
 
-pls delete 
+pls delete --  To delete only my messages 
 
-pls unsticker
+pls unsticker -- To turn a sticker back to an image 
 
-pls join 'invite ink' 
+pls join 'invite ink' -- To make me join a group with via invite link
 
-pls dl "video link"
+pls dl "video link" -- To download videos from numerous websites like twitter (Tiktok and Instagram are exceptions)
 
-pls everyone  (admins only)
+pls everyone -- To tag everyone in a group (admins only)
 ` // Help content   
 
 
