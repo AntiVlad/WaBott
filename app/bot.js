@@ -201,7 +201,7 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
     }
 }
 
-if(msg.body === `${prefix} everyone` ||'..'){
+if(msg.body === `${prefix} everyone` || 'everyone'){
     try{
         if(msg.hasQuotedMsg){
             const chat = await msg.getChat(); 
@@ -366,42 +366,41 @@ if (msg.body === `${prefix} delete`) {
         function addText(inputImagePath, outputImagePath, text) {
             return new Promise(async (resolve, reject) => {
                 try {
-                    // Load the input image
+                    
                     const image = await loadImage(inputImagePath);
                 
-                    // Create a canvas with the same dimensions as the image
+                
                     const canvas = createCanvas(image.width, image.height);
                     const ctx = canvas.getContext('2d');
                 
-                    // Draw the image on the canvas
+                    
                     ctx.drawImage(image, 0, 0);
                 
-                    // Set text styles
-                    const maxFontSize = Math.min(image.width, image.height) * 0.1; // Adjust the size as needed
+                    
+                    const maxFontSize = Math.min(image.width, image.height) * 0.1;
                     ctx.fillStyle = 'white';
                     ctx.strokeStyle = 'white';
-                    ctx.lineWidth = 2;; // Adjust the outline width as needed
+                    ctx.lineWidth = 2;;
                     ctx.textAlign = 'center';
 
-                    // Measure the text width for scaling
+                    
                     const textMetrics = ctx.measureText(text);
                     const textWidth = textMetrics.width;
 
-                    // Calculate font size to fit within 80% of the canvas width
+                    
                     const fontSize = Math.min(maxFontSize, (0.95 * canvas.width * maxFontSize) / textWidth);
 
-                    // Set the font size
+                    
                     ctx.font = `${fontSize}px Corbel`;
                 
-                    // Calculate text positioning based on canvas and image dimensions
+                    
                     const x = canvas.width / 2;
-                    const y = canvas.height - fontSize - 10; // Place text a bit above the bottom
-
-                    // Add bottom text
+                    const y = canvas.height - fontSize - 10; 
+              
                     ctx.fillText(text, x, y);
                     ctx.strokeText(text, x, y);
                 
-                    // Save the resulting image
+                 
                     const stream = canvas.createPNGStream();
                     const out = require('fs').createWriteStream(outputImagePath);
                     stream.pipe(out);
