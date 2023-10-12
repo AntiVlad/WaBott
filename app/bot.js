@@ -109,12 +109,10 @@ client.on('message', async (msg) => {
 const isAdmin = (member, chat) => {
     if (!chat.isGroup) return true; 
     const userid = member.slice(0, -5) 
-    
-    /* --- Actual admin check --- */
     for (let i = 0; i < chat.participants.length; i++) {
         if (!!chat.participants[i].isAdmin && (chat.participants[i].id.user == userid)) 
             return true;
-    }
+        }
     return false;
 }
 const chat = await msg.getChat(); 
@@ -203,7 +201,7 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
     }
 }
 
-if(msg.body === `${prefix} everyone`){
+if(msg.body === `${prefix} everyone` ||'..'){
     try{
         if(msg.hasQuotedMsg){
             const chat = await msg.getChat(); 

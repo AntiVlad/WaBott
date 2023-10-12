@@ -1,20 +1,20 @@
 
-const { exec } = require('child_process');
+// const { exec } = require('child_process');
 
-// Replace 'your-command-here' with the actual command you want to run
-const cmdCommand = 'dir';
+// // Replace 'your-command-here' with the actual command you want to run
+// const cmdCommand = 'dir';
 
-exec(cmdCommand, (error, stdout, stderr) => {
-  if (error) {
-    console.error(`Error: ${error.message}`);
-    return;
-  }
-  if (stderr) {
-    console.error(`stderr: ${stderr}`);
-    return;
-  }
-  console.log(`stdout: ${stdout}`);
-});
+// exec(cmdCommand, (error, stdout, stderr) => {
+//   if (error) {
+//     console.error(`Error: ${error.message}`);
+//     return;
+//   }
+//   if (stderr) {
+//     console.error(`stderr: ${stderr}`);
+//     return;
+//   }
+//   console.log(`stdout: ${stdout}`);
+// });
 
 
 
@@ -97,3 +97,23 @@ exec(cmdCommand, (error, stdout, stderr) => {
 // }
 
 // vlada()
+
+
+
+
+
+
+const qrcode = require('qrcode-terminal');
+
+const { Client } = require('whatsapp-web.js');
+const client = new Client();
+
+client.on('qr', qr => {
+    qrcode.generate(qr, {small: true});
+});
+
+client.on('ready', () => {
+    console.log('Client is ready!');
+});
+
+client.initialize();
