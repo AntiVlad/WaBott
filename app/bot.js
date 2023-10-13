@@ -194,7 +194,7 @@ if (msg.body.toLowerCase() === `${prefix} dl` && msg.hasQuotedMsg) {
                 }
             } catch (error) {
                 console.error(`Error executing command: ${error.message}`);
-                throw error; // Re-throw the error to be caught in the outer try-catch block.
+                throw error; 
             }
         }
         await main();
@@ -202,7 +202,7 @@ if (msg.body.toLowerCase() === `${prefix} dl` && msg.hasQuotedMsg) {
         await msg.reply(media);
     }catch (e) {
         console.log(e) 
-        msg.reply(`Welp, Error`);
+        msg.reply(`Something went wrong.`);
     }
 }
 
