@@ -172,18 +172,17 @@ if (msg.body.toLowerCase() === `${prefix} dl` && msg.hasQuotedMsg) {
         function runCommand(cmdCommand) {
             return new Promise((resolve, reject) => {
                 exec(cmdCommand, (error, stdout, stderr) => {
-                if (error) {
-                    reject(`Error: ${error.message}`);
-                    return;
-                }
-                if (stderr) {
-                    reject(`stderr: ${stderr}`);
-                    return;
-                }`  `
-                resolve(stdout);
+                    if (error) {
+                        reject(`Error: ${error.message}`);
+                    } else if (stderr) {
+                        reject(`stderr: ${stderr}`);
+                    } else {
+                        resolve(stdout);
+                    }
                 });
             });
         }
+        
         async function main() {
         try {
             const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites "${link.body}"`;
