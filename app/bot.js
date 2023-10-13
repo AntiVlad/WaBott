@@ -116,6 +116,7 @@ const isAdmin = (member, chat) => {
     return false;
 }
 const chat = await msg.getChat(); 
+
 if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.hasQuotedMsg ) {
     function replace(o, s, r) {
         const regex = new RegExp(s, 'gi'); 
@@ -163,7 +164,7 @@ if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.has
     }
 }
 
-if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {    
+if (msg.body.toLowerCase() === `${prefix} dl` && msg.hasQuotedMsg) {    
     try{
         const link = await msg.getQuotedMessage();
         console.log(link.body)        
@@ -201,7 +202,7 @@ if (msg.body === `${prefix} dl` && msg.hasQuotedMsg) {
     }
 }
 
-if(msg.body === `${prefix} everyone`){
+if(msg.body.toLowerCase() === `${prefix} everyone`){
     try{
         if(msg.hasQuotedMsg){
             const chat = await msg.getChat(); 
@@ -247,7 +248,7 @@ if (msg.body.startsWith(`${prefix} everyone `)) {
     }
 }
 /*Sends a random meme from reddit via reddit-image-fetcher module */
-if(msg.body===`${prefix} meme`){
+if(msg.body.toLowerCase()===`${prefix} meme`){
     try{            
         RedditImageFetcher.fetch({
             type: 'meme'
@@ -261,7 +262,7 @@ if(msg.body===`${prefix} meme`){
 }
 
 /*Deletes a message sent by the bot account*/
-if (msg.body === `${prefix} delete`) {
+if (msg.body.toLowerCase() === `${prefix} delete`) {
     if (msg.hasQuotedMsg) {
         try{
             const quotedMsg = await msg.getQuotedMessage();
@@ -276,7 +277,7 @@ if (msg.body === `${prefix} delete`) {
             }
     }
     /*Turns an image,video or gif to a sticker*/
-}else if(msg.body === `${prefix} sticker`){
+}else if(msg.body.toLowerCase() === `${prefix} sticker`){
     if(msg.hasMedia) {
         try{
             const sticker = await msg.downloadMedia();      
@@ -301,7 +302,7 @@ if (msg.body === `${prefix} delete`) {
         msg.reply("You have to quote a media message or send a media with the command as its caption")
     }
     /*Turns a sticker to an image */
-}else if(msg.body === `${prefix} unsticker`){
+}else if(msg.body.toLowerCase() === `${prefix} unsticker`){
     if(msg.hasQuotedMsg){
         try{
             const quotedMsg = await msg.getQuotedMessage();
@@ -318,7 +319,7 @@ if (msg.body === `${prefix} delete`) {
         msg.reply("You have to quote a sticker")
     }
     /*Makes the bot account join a group*/
-}else if (msg.body.startsWith(`${prefix} join `)) {
+}else if (msg.body.toLowerCase().startsWith(`${prefix} join `)) {
     try {
         const inviteCode = msg.body.split('/')[3]
         console.log(inviteCode)
@@ -328,7 +329,7 @@ if (msg.body === `${prefix} delete`) {
         console.log(e)
         msg.reply(`link must be in this format 'https://chat.whatsapp.com/EUg3MA4iWe29dw9iUJxT1n' `);
     }
-}else if(msg.body === `${prefix} resend`){
+}else if(msg.body.toLowerCase() === `${prefix} resend`){
     if(msg.hasQuotedMsg) {
         try{
             const quotedMsg = await msg.getQuotedMessage();    
@@ -340,7 +341,7 @@ if (msg.body === `${prefix} delete`) {
         }
     }}
     
-    if(msg.body.startsWith(`${prefix} sticker -c `)){
+    if(msg.body.toLowerCase().startsWith(`${prefix} sticker -c `)){
     try{
         const caption = msg.body.replace(`${prefix} sticker -c`," ")
         const quotedMsg = await msg.getQuotedMessage();            
