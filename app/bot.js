@@ -343,7 +343,7 @@ if (msg.body.toLowerCase() === `${prefix} delete`) {
     
     if(msg.body.toLowerCase().startsWith(`${prefix} sticker -c `)){
     try{
-        const caption = msg.body.replace(`${prefix} sticker -c`," ")
+        const caption = msg.body.toLowerCase().replace(`${prefix} sticker -c`," ")
         const quotedMsg = await msg.getQuotedMessage();            
         const Waimage = await quotedMsg.downloadMedia();
         // console.log(Waimage)
