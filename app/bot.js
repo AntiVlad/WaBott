@@ -184,19 +184,24 @@ if (msg.body.toLowerCase() === `${prefix} dl` && msg.hasQuotedMsg) {
         }
         
         async function main() {
-        try {
-            const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites "${link.body}"`;
-            const stdout = await runCommand(cmdCommand);
-            console.log(`Command output: ${stdout}`);
-        } catch (error) {
-            console.error(`Error executing command: ${error}`);
-        }
+            try {
+                const cmdCommand = `yt-dlp --output vid.mp4 --force-overwrites "${link.body}"`;
+                const stdout = await runCommand(cmdCommand);
+                console.log(`Command output: ${stdout}`);
+        
+                if (stdout.includes("WARNING: [Instagram]")) {
+                    throw new Error("Error: Instagram Ment");
+                }
+            } catch (error) {
+                console.error(`Error executing command: ${error.message}`);
+                throw error; // Re-throw the error to be caught in the outer try-catch block.
+            }
         }
         await main();
         const media =  MessageMedia.fromFilePath('vid.mp4');
         await msg.reply(media);
     }catch (e) {
-        console.log(e)
+        console.log(e) 
         msg.reply(`Welp, Error`);
     }
 }
