@@ -189,8 +189,8 @@ if (msg.body.toLowerCase() === `${prefix} dl` && msg.hasQuotedMsg) {
                 const stdout = await runCommand(cmdCommand);
                 console.log(`Command output: ${stdout}`);
         
-                if (stdout.includes("WARNING: [Instagram]")) {
-                    throw new Error("Error: Instagram Ment");
+                if (stdout.includes("ERROR")) {
+                    throw new Error("Error: Ment");
                 }
             } catch (error) {
                 console.error(`Error executing command: ${error.message}`);
