@@ -117,52 +117,52 @@ const isAdmin = (member, chat) => {
 }
 const chat = await msg.getChat(); 
 
-// if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.hasQuotedMsg ) {
-//     function replace(o, s, r) {
-//         const regex = new RegExp(s, 'gi'); 
-//         return o.replace(regex, r);
-//     }    
-//     const string = msg.body;
-//     const s = "pls dl";
-//     const r = "";
+if (msg.body.includes(`${prefix} dl`) || msg.body.includes(`Pls dl`) && !msg.hasQuotedMsg ) {
+    function replace(o, s, r) {
+        const regex = new RegExp(s, 'gi'); 
+        return o.replace(regex, r);
+    }    
+    const string = msg.body;
+    const s = "pls dl";
+    const r = "";
     
-//     const link = replace(string, s, r);
-//     try {
-//         console.log(link)        
-//         const { exec } = require('child_process');
-//         function runCommand(cmdCommand) {
-//             return new Promise((resolve, reject) => {
-//                 exec(cmdCommand, (error, stdout, stderr) => {
-//                 if (error) {
-//                     reject(`Error: ${error.message}`);
-//                     return;
-//                 }
-//                 if (stderr) {
-//                     reject(`stderr: ${stderr}`);
-//                     return;
-//                 }
-//                 resolve(stdout);
-//                 });
-//             });
-//         }
-//         async function main() {
-//             try {
-//                 const cmdCommand = `yt-dlp --output vid1.mp4 --force-overwrites "${link}"`;
-//                 const stdout = await runCommand(cmdCommand);
-//                 console.log(`Command output: ${stdout}`);
-//                 const media =  MessageMedia.fromFilePath('vid1.mp4');
-//                 await msg.reply(media);
-//             } catch (error) {
-//                 console.error(`Error executing command: ${error}`);
-//             }
-//         }
-//         await main();
+    const link = replace(string, s, r);
+    try {
+        console.log(link)        
+        const { exec } = require('child_process');
+        function runCommand(cmdCommand) {
+            return new Promise((resolve, reject) => {
+                exec(cmdCommand, (error, stdout, stderr) => {
+                if (error) {
+                    reject(`Error: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    reject(`stderr: ${stderr}`);
+                    return;
+                }
+                resolve(stdout);
+                });
+            });
+        }
+        async function main() {
+            try {
+                const cmdCommand = `yt-dlp --output vid1.mp4 --force-overwrites "${link}"`;
+                const stdout = await runCommand(cmdCommand);
+                console.log(`Command output: ${stdout}`);
+                const media =  MessageMedia.fromFilePath('vid1.mp4');
+                await msg.reply(media);
+            } catch (error) {
+                console.error(`Error executing command: ${error}`);
+            }
+        }
+        await main();
         
-//     }catch (e) {
-//         console.log(e)
-//         msg.reply(`Welp, Error`);
-//     }
-// }
+    }catch (e) {
+        console.log(e)
+        msg.reply(`Welp, Error`);
+    }
+}
 
 if (msg.body.toLowerCase() === `${prefix} dl` && msg.hasQuotedMsg) {    
     try{
