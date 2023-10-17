@@ -18,9 +18,9 @@ const client = new Client({
 	     args: ['--no-sandbox']
 	     },
   ffmpegPath: '../ffmpeg.exe',
-  puppeteer: {
-    executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-}
+ // puppeteer: {
+  //  executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+//}
 });
 
 app.get('/', (req, res) => {
