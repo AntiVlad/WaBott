@@ -14,7 +14,9 @@ const { createCanvas, loadImage } = require('canvas');
 //Qr-code and Authentication scripts
 const client = new Client({
   authStrategy: new LocalAuth(),
-  puppeteer: { headless: true },
+  puppeteer: { headless: true,
+	     args: ['--no-sandbox']
+	     },
   ffmpegPath: '../ffmpeg.exe',
   puppeteer: {
     executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
