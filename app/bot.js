@@ -51,21 +51,21 @@ const prefix = 'pls' //Command prefix
 
 const help=`
 **Available Commands are**
-1. **ping**: Test if the bot is active and responsive.
+1. *ping*: Test if the bot is active and responsive.
    
-2. **pls help**: Display the list of available commands along with their descriptions.
+2. *pls help*: Display the list of available commands along with their descriptions.
 
-3. **pls sticker**: Convert an image or video to a sticker. Send the image/video with the command as the caption, or tag an image/video with the command. (E.g., 'pls sticker', or 'pls sticker -c "your caption"')
+3. *pls sticker*: Convert an image or video to a sticker. Send the image/video with the command as the caption, or tag an image/video with the command. (E.g., 'pls sticker', or 'pls sticker -c "your caption"')
 
-4. **pls delete**: Delete only the bot's messages from the chat.
+4. *pls delete*: Delete only the bot's messages from the chat.
 
-5. **pls unsticker**: Convert a sticker back to its original image or video format.
+5. *pls unsticker*: Convert a sticker back to its original image or video format.
 
-6. **pls join 'invite link'**: Invite the bot to join a group via an invite link.
+6. *pls join 'invite link'*: Invite the bot to join a group via an invite link.
 
-7. **pls dl "video link"**: Download videos from various websites. Supported sites include Twitter. (Note: TikTok and Instagram are exceptions.)
+7. *pls dl "video link"*: Download videos from various websites. Supported sites include Twitter. (Note: TikTok and Instagram are exceptions.)
 
-8. **..**: Tag everyone in the group. Only admins can use this command.
+8. *..*: Tag everyone in the group. Only admins can use this command.
 
 
 ` // Help content   
