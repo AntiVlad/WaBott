@@ -36,11 +36,6 @@ app.get('/', (req, res) => {
     .end();
 });
  
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is Active 
-waiting for client to start.`);
-});
 
 client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
@@ -54,24 +49,25 @@ client.initialize();
 
 const prefix = 'pls' //Command prefix 
 
-const help=`Commands supported  are...
-ping -- To test if the bot is active
+const help=`
+**Available Commands are**
+1. **ping**: Test if the bot is active and responsive.
+   
+2. **pls help**: Display the list of available commands along with their descriptions.
 
-pls help -- To bring up this message
+3. **pls sticker**: Convert an image or video to a sticker. Send the image/video with the command as the caption, or tag an image/video with the command. (E.g., 'pls sticker', or 'pls sticker -c "your caption"')
 
-pls sticker -- To turn an image/video to a sticker(send the image/video with the command as the caption or tag an image/video with the command)
+4. **pls delete**: Delete only the bot's messages from the chat.
 
-pls sticker -c "caption" -- Turns an image to a sticker but you can add any caption of your choice together with the command 
+5. **pls unsticker**: Convert a sticker back to its original image or video format.
 
-pls delete --  To delete only my messages 
+6. **pls join 'invite link'**: Invite the bot to join a group via an invite link.
 
-pls unsticker -- To turn a sticker back to an image 
+7. **pls dl "video link"**: Download videos from various websites. Supported sites include Twitter. (Note: TikTok and Instagram are exceptions.)
 
-pls join 'invite ink' -- To make me join a group with via invite link
+8. **..**: Tag everyone in the group. Only admins can use this command.
 
-pls dl "video link" -- To download videos from numerous websites like twitter (Tiktok and Instagram are exceptions)
 
-.. -- To tag everyone in a group (admins only)
 ` // Help content   
 
 
