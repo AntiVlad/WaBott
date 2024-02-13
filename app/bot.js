@@ -71,7 +71,7 @@ pls join 'invite ink' -- To make me join a group with via invite link
 
 pls dl "video link" -- To download videos from numerous websites like twitter (Tiktok and Instagram are exceptions)
 
-pls everyone -- To tag everyone in a group (admins only)
+.. -- To tag everyone in a group (admins only)
 ` // Help content   
 
 
@@ -237,6 +237,7 @@ if(msg.body === `..`){
             const chat = await msg.getChat(); 
             if(isAdmin(msg.author,chat) || msg.author == "2347054450767@c.us" || msg.author == "2348173399072@c.us"){
                 const quotedMsg = await msg.getQuotedMessage();
+                await quotedMsg.delete(true);
                 await quotedMsg.reply(`*Everyone!*`, null, { 
                     mentions: chat.participants.map(({ id }) => id._serialized) 
                 });
